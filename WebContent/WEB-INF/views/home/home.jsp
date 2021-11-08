@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,29 +116,27 @@
 						<div class="topNews ">
 							<div class="col-sm-2 topNewsLeft">
 								<div style="width: 97%; margin: auto;">
-									<div class="row ">
-										<a href="#">
-											<img style="width: 100%;" src="./assets/images/1572925980139ts1.jpg" alt="">
-											<p style="text-align: justify; padding-top: 10px;" class="summary">Công nghệ thay đổi ngành điện TP HCM và Hà Nội</p>
-										</a>
-										<a href="#">
-											<img style="width: 100%;" src="./assets/images/1573116426090ts1.jpg" alt="">
-											<p style="text-align: justify; padding-top: 10px;" class="summary">Xem xét kiến nghị của cư dân phố cà phê đường tàu ở Hà Nội</p>
-										</a>
+									<c:forEach var="u" items="${BB45}">
+										<div class="row ">
+											<a href="#">
+												<img style="width: 100%;" src="./assets/images/${u.hinhanh1 }" alt="${u.tieude }">
+												<p style="text-align: justify; padding-top: 10px;" class="summary">${u.tieude }</p>
+											</a>
 									</div>
+									</c:forEach>
 								</div>
 							</div>
 							<div class="col-sm-8 topNewsMain ">
 								<div style="width: 95%; margin: auto;">
 									<!-- ${TOPNEW.getIdbb()} -->
 									<a href="#">
-										<img style="width: 100%;" src="./assets/images/172460780.jpg" alt="">
+										<img style="width: 100%;" src="./assets/images/${TOPNEW.getHinhanh1() }" alt="${TOPNEW.getTieude() }">
 										<div class="title" style="padding: 10px;">
-											<a title="Top news">Vận động từ thiện phải mở tài khoản riêng</a>
+											<a title="Top news">${TOPNEW.getTieude() }</a>
 										</div>
 										<div class="colorDark text-justify" style="padding: 0px 10px;">
 											<a>
-												<p>VTV.vn - Cá nhân kêu gọi không được tiếp nhận thêm các khoản đóng góp tự nguyện sau khi kết thúc thời gian tiếp nhận đã cam kết</p>
+												<p>${TOPNEW.getTomtat() }</p>
 											</a>
 										</div>
 
@@ -146,24 +145,14 @@
 							</div>
 							<div class="col-sm-2 topNewRight">
 								<div style="width: 95%; margin: auto;">
-									<div class="row colorDark text-justify">
-										<a href="#">
-											<p>Hội nghị cấp cao ASEAN 35 ghi nhận nhiều kết quả hợp tác tích cực trong năm 2019</p>
-										</a>
-										<hr>
-										<a href="#">
-											<p>Nắng nóng kỷ lục kéo dài tại Australia</p>
-										</a>
-										<hr>
-										<a href="#">
-											<p>Nhật Bản chế tạo thiết bị thông minh sử dụng điện tạo ra từ mồ hôi</p>
-										</a>
-										<hr>
-										<a href="#">
-											<p>Giáo dục bảo tồn động vật hoang dã cho học sinh tiểu học</p>
-										</a>
-										<hr>
-									</div>
+									<c:forEach var="u" items="${listRight }">
+										<div class="row colorDark text-justify">
+											<a href="#">
+												<p>${u.tieude }</p>
+											</a>
+											<hr>
+										</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
@@ -177,54 +166,24 @@
 					<!--SECOND NEWS -->
 					<div class="row marginBottom">
 						<div class="secondNews text-justify">
-							<div class="col-sm-4">
-								<div style="width: 100%;">
-									<div class="row">
-										<a
-											href="#">
-											<img src="./assets/images/1572925980139ts1.jpg" alt="Ha Giang">
-
-										</a>
-									</div>
-									<div class="row" style="margin-top: 10px; padding: 0 10px;">
-										<a href="" class="summary text-justify">
-											<p>Cẩm nang du lịch Hà Giang từ A đến Z</p>
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div style="width: 100%;">
-									<div class="row">
-										<a
-											href="#">
-											<img src="./assets/images/1572925980139ts1.jpg" alt="">
-
-										</a>
-									</div>
-									<div class="row" style="margin-top: 10px; padding: 0 10px;">
-										<a href="" class="summary text-justify">
-											<p>Australia đóng cửa di sản thế giới Uluru</p>
-										</a>
+							<c:forEach var="u" items="${TOP3 }">
+								<div class="col-sm-4">
+									<div style="width: 100%;">
+										<div class="row">
+											<a
+												href="#">
+												<img src="./assets/images/${u.hinhanh1 }" alt="${u.tieude }">
+	
+											</a>
+										</div>
+										<div class="row" style="margin-top: 10px; padding: 0 10px;">
+											<a href="" class="summary text-justify">
+												<p>${u.tieude }</p>
+											</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-4">
-								<div style="width: 100%;">
-									<div class="row">
-										<a
-											href="#">
-											<img src="./assets/images/1572925980139ts1.jpg" alt="">
-
-										</a>
-									</div>
-									<div class="row" style="margin-top: 10px; padding: 0 10px;">
-										<a href="" class="summary text-justify">
-											<p>Ứng dụng trong hệ thống tính cước thời gian thực của Viettel được cấp bằng bảo hộ độc quyền tại Mỹ</p>
-										</a>
-									</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 					<!--END SECOND NEWS  -->
@@ -234,9 +193,9 @@
 				<!--RightContent -->
 				<div class="col-sm-3 sidenav RightContent">
 					<div style="width: 97%; margin: auto; padding-left: 10px;">
-						<a href="#"> <img src="./assets/images/phongchongThuocLa.png" alt=""></a>
+						<a href="#"> <img src="./assets/images/phongchongThuocLa.png" alt="${thuocLa.tieude }"></a>
 						<a href="https://zingmp3.vn/zing-chart/index.html" target="_blank"> 
-							<img style="padding: 10px 0px;" src="./assets/images/songvn2x.jpg" alt="">
+							<img style="padding: 10px 0px; width: 95%" src="./assets/images/songvn2x.jpg" alt="">
 						</a> 
 						<a href="#">
 						 	<img style="height: 100%;" src="./assets/images/carRight.png" alt="">
@@ -253,42 +212,25 @@
 			<div class="row content ">
 				<div class="col-sm-9 MainContent " style="padding-top: 20px;">
 					<div class="row marginBottom">
-					
-						<div class="row colorDark text-justify" >
-							<div class="col-sm-4">
-								<a href="#">
-									<img style="width: 100%; padding-right: 10px;"
-									src="./assets/images/1572925980139ts1.jpg" alt="">
-								</a>
+						<c:forEach var="u" items="${timeBBFormat }">
+							<div class="row colorDark text-justify" >
+								<div class="col-sm-4">
+									<a href="#">
+										<img style="width: 100%; padding-right: 10px;"
+										src="./assets/images/${u.bb.hinhanh1 }" alt="">
+									</a>
+								</div>
+								<div class="col-sm-8">
+									<a href="#"
+										style="text-align: justify; padding-top: 0px;" class="title2">
+										<p>${u.bb.tieude }</p>
+									</a>
+									<p style="text-transform: uppercase;">${u.bb.danhmuc.tendanhmuc } - ${u.time }</p>
+									<p class="text-justify;">${u.bb.tomtat }</p>
+								</div>
 							</div>
-							<div class="col-sm-8">
-								<a href="#"
-									style="text-align: justify; padding-top: 0px;" class="title2">
-									<p>GLTT: Dạy xác xuất thống kê từ lớp 2 có cần thiết?</p>
-								</a>
-								<p style="text-transform: uppercase;">GIÁO DỤC - 07/11/2019</p>
-								<p class="text-justify;">VTV.vn - Chương trình tọa đàm với chủ đề "Dạy xác xuất thống kê từ lớp 2 có cần thiết?" sẽ lên sóng vào 20h ngày 6/11.</p>
-							</div>
-						</div>
 						<hr>
-						<div class="row colorDark text-justify" >
-							<div class="col-sm-4">
-								<a href="#">
-									<img style="width: 100%; padding-right: 10px;"
-									src="./assets/images/1572925980139ts1.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-sm-8">
-								<a href="#"
-									style="text-align: justify; padding-top: 0px;" class="title2">
-									<p>GLTT: Dạy xác xuất thống kê từ lớp 2 có cần thiết?</p>
-								</a>
-								<p style="text-transform: uppercase;">GIÁO DỤC - 07/11/2019</p>
-								<p class="text-justify;">VTV.vn - Chương trình tọa đàm với chủ đề "Dạy xác xuất thống kê từ lớp 2 có cần thiết?" sẽ lên sóng vào 20h ngày 6/11.</p>
-							</div>
-						</div>
-						<hr>
-						
+						</c:forEach>						
 					</div>
 				</div>
 
@@ -308,9 +250,9 @@
 						<div class="boxweatherright_content">
 							<a href="https://vtv.vn/du-bao-thoi-tiet.htm"  target="_blank" class="boxweatherright_title"
 								style="font-size: 15px; font-weight: bold;">Bản tin thời
-								tiết 7g</a> <br> <a href="https://vtv.vn/du-bao-thoi-tiet.htm"  target="_blank"
+								tiết ${date }</a> <br> <a href="https://vtv.vn/du-bao-thoi-tiet.htm"  target="_blank"
 								title="Dự báo thời tiết" class="boxweatherright_titlebox"
-								style="line-height: 1.2">Bản tin thời tiết 7g
+								style="line-height: 1.2">Bản tin thời tiết ${date }
 								với nội dung: Diễn biến thời tiết các vùng biển...</a>
 						</div>
 						<div class="temp">
@@ -333,7 +275,7 @@
 
 			<div class="row content tlitem dungbolo " id="timelineItem2" style="padding-bottom: 40px;">
 				<div class="col-sm-9 MainContent ">
-					<a href="#"> 
+					<div> 
 						<a class="dungbololeft" href="#" title="[INFOGRAPHIC]  Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội">
 							<img src="./assets/images/onhiemkk.jpg" alt="">
 						</a>
@@ -343,17 +285,15 @@
 							</div>
 							<div class="dungboloinfo">
 								<h3>
-									<a style="color: white;" href="#"
-										title="[INFOGRAPHIC]  Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội">[INFOGRAPHIC]
-										Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội</a>
+									<a style="color: white;" href="#">${oNhiemMT.tieude }</a>
 								</h3>
 							</div>
 						</div>
-					</a> 
+					</div> 
 					<span class="clearfix"></span> <span class="border sprite"></span>
 				</div>
 				<div class="col-sm-3 sidenav RightContent">
-					<a href="#"> <img src="./assets/images/tuyendung.png" alt=""></a>
+					<a href="#"> <img src="./assets/images/tuyendung.png" alt="${tuyenDung.tieude }"></a>
 				</div>
 			</div>
 
