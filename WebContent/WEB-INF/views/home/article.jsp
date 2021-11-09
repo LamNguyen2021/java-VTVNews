@@ -219,13 +219,15 @@
 								<div class="tinlienquan clearfix">
 									<h3 style="padding-top: 20px;">TIN LIÊN QUAN</h3>
 									<ul>
-										<li style="padding-bottom: 10px;">
-											<i class="glyphicon glyphicon-tags" style="padding-right: 10px;"></i> 
-												<a style="font-size: 16px; color: #105cbb" title=""
-													href="#"
-													data-nocheck="1">Nắng nóng kỷ lục kéo dài tại Australia
-												</a>
-										</li>
+										<c:forEach var="u" items="${tinLienQuan }">
+											<li style="padding-bottom: 10px;">
+												<i class="glyphicon glyphicon-tags" style="padding-right: 10px;"></i> 
+													<a style="font-size: 16px; color: #105cbb" 
+														href="${pageContext.request.contextPath }/bai-viet/${u.idbb}" data-nocheck="1">
+														${u.tieude }
+													</a>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -276,11 +278,11 @@
 				<!--RightContent -->
 				<div class="col-sm-3 sidenav RightContent" id="Img100">
 					<div style="width: 97%; margin: auto; padding-left: 10px; margin-top: 60px;">
-						<a href="#"> <img src="./assets/images/phongchongThuocLa.png" alt=""></a>
+						<a href="${pageContext.request.contextPath }/bai-viet/${thuocLa.idbb}"> <img src="./assets/images/phongchongThuocLa.png" alt=""></a>
 						<a href="https://zingmp3.vn/zing-chart/index.html" target="_blank"> 
 							<img style="padding: 10px 0px; width: 95%" src="./assets/images/songvn2x.jpg" alt="">
 						</a> 
-						<a href="#"> 
+						<a href="https://mazdamotors.vn/" target="_blank"> 
 							<img style="height: 100%;" src="./assets/images/carRight.png" alt="">
 						</a>
 					</div>
@@ -295,20 +297,20 @@
 			
 			<div class="row content marginBottom">
 				<div class="col-sm-4  category_box5">
-					<h2><a href="#">CÔNG NGHỆ</a></h2>
-					<a href="#"> 
+					<h2><a href="${pageContext.request.contextPath}/danh-muc/3CN">CÔNG NGHỆ</a></h2>
+					<a href="${pageContext.request.contextPath}/danh-muc/3CN"> 
 						<img style="height: 270px; width: 100%;" src="./assets/images/ipad.jpg" alt="">
 					</a>
 				</div>
 				<div class="col-sm-4  category_box5" style="margin: 0px 5px;">
-					<h2><a href="#">GIÁO DỤC</a></h2>
-					<a href="#">
+					<h2><a href="${pageContext.request.contextPath}/danh-muc/4GD">GIÁO DỤC</a></h2>
+					<a href="${pageContext.request.contextPath}/danh-muc/4GD">
 						<img style="height: 270px; width: 100%;" src="./assets/images/startup.png" alt="">
 					</a>
 				</div>
 				<div class="col-sm-4  category_box5">
-					<h2><a href="#">GIẢI TRÍ</a></h2>
-					<a href="#">
+					<h2><a href="${pageContext.request.contextPath}/danh-muc/GT">GIẢI TRÍ</a></h2>
+					<a href="${pageContext.request.contextPath}/danh-muc/GT">
 						<img style="height: 270px; width: 100%;" src="./assets/images/abominable1.jpg" alt="">
 					</a>
 				</div>

@@ -172,6 +172,22 @@ public class AdminController {
 		String danhMuc = list4.getDanhmuc().getMadanhmuc();
 		model.addAttribute("danhMuc", danhMuc);
 		
+		// quảng cáo PC thuốc lá
+		String thuocLa = "FROM baibao WHERE idbb=4";
+		Query querythuocLa = session1.createQuery(thuocLa);
+		baibao thuocLaBB = new baibao();
+		thuocLaBB = (baibao) querythuocLa.list().get(0);
+		model.addAttribute("thuocLa", thuocLaBB);
+		
+		// tin liên quan
+		String tinLienQuan = "FROM baibao WHERE madanhmuc = '" + danhMuc + "' AND idbb != " + idbb + "ORDER BY ngaydang DESC";
+		Query querytinLienQuan = session1.createQuery(tinLienQuan);
+		List<baibao> listTinLienQuan = querytinLienQuan.list();
+		if(listTinLienQuan.size() > 3) {
+			listTinLienQuan = querytinLienQuan.list().subList(0, 3);
+		}
+		model.addAttribute("tinLienQuan", listTinLienQuan);
+		
 		
 		return "home/article";
 	}
