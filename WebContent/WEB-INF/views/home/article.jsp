@@ -197,19 +197,21 @@
 										</div>
 										<hr>
 										<div style="margin-top: 20px;">
-											<div style="display: flex; align-items: center; padding: 10px;">
-												<img
-													style="width: 50px;height:50px; border-radius: 50%; margin-right: 10px;"
-													src="./assets/images/${u.bl.taikhoan.anh}">
-												<p>
-													<span
-														style="padding-right: 5px; font-size: 15px; font-weight: bold; color: #3475c7;">Thu Kara:</span>
-													chưa đi đã đóng cửa huhu
-												</p>
-												<div style="margin-left: auto;display:flex;">
-													<p style="padding-right:10px;color:#69d0cb;">18/09/2019</p>
+											<c:forEach var="u" items="${listTimeBL }">
+												<div style="display: flex; align-items: center; padding: 10px;">
+													<img
+														style="width: 50px;height:50px; border-radius: 50%; margin-right: 10px;"
+														src="./assets/images/${u.bl.taikhoan.anh}">
+													<p>
+														<span
+															style="padding-right: 5px; font-size: 15px; font-weight: bold; color: #3475c7;">${u.bl.taikhoan.hoten}:</span>
+														${u.bl.noidung}
+													</p>
+													<div style="margin-left: auto;display:flex;">
+														<p style="padding-right:10px;color:#69d0cb;">${u.time }</p>
+													</div>
 												</div>
-											</div>
+											</c:forEach>
 										</div>
 									</div>
 								</div>

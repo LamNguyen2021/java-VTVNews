@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import AdminNewPage.Entity.baibao;
+import AdminNewPage.Entity.binhluan;
 import AdminNewPage.Entity.danhmuc;
 import AdminNewPage.Entity.timeBB;
+import AdminNewPage.Entity.timeBL;
 
 @Controller
 @Transactional
@@ -187,6 +189,19 @@ public class AdminController {
 			listTinLienQuan = querytinLienQuan.list().subList(0, 3);
 		}
 		model.addAttribute("tinLienQuan", listTinLienQuan);
+		
+		// bình luận
+		String binhLuan = "FROM binhluan WHERE idbb = " + idbb + " ORDER BY ngaybl DESC";
+		Query querybinhLuan = session1.createQuery(binhLuan);
+		List<binhluan> listBinhLuan = querybinhLuan.list();
+		List<timeBL> listTimeBL = new ArrayList<timeBL>();
+		for(binhluan i : listBinhLuan) {
+			SimpleDateFormat formatbl = new SimpleDateFormat("dd/MM/yyyy");
+			String timebl = formatbl.format(i.getNgaybl());
+			//System.out.println("ngay format binh luan: " + timebl);
+			listTimeBL.add(new timeBL(timebl, i));
+		}
+		model.addAttribute("listTimeBL", listTimeBL);
 		
 		
 		return "home/article";
