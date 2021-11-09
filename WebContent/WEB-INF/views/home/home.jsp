@@ -33,9 +33,9 @@
 
 </head>
 <body>
-	<!-- <div id="loader">
+	<div id="loader">
 		<div id="status"></div>
-	</div> -->
+	</div>
 	<header id="header" class="header-block-top backgroungRed">
 		<div class="container">
 
@@ -52,7 +52,7 @@
 								class="icon-bar"></span>
 						</button>
 						<div class="logo">
-							<a class="navbar-brand js-scroll-trigger logo-header" href="#"
+							<a class="navbar-brand js-scroll-trigger logo-header" href="${pageContext.request.contextPath}/home"
 								data-toggle="tooltip" title="Báo điện tử VTV News"> <img
 								src="./assets/images/logoNews.png" alt="">
 							</a>
@@ -85,13 +85,14 @@
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right menuBottom">
-							<li class="active"><a style="padding:20px 3px;" 
-								href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Tin tức</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Giáo dục</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Văn hóa</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Đời sống</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Thể thao</a></li>
+							<li class="active">
+								<a style="padding:20px 3px;" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+							</li>
+							<c:forEach var="u" items="${DM}">
+								<li >
+									<a style="padding:20px 3px;"  href="${pageContext.request.contextPath}/danh-muc/${u.madanhmuc}">${u.tendanhmuc}</a>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 					<!-- end nav-collapse -->
@@ -118,7 +119,7 @@
 								<div style="width: 97%; margin: auto;">
 									<c:forEach var="u" items="${BB45}">
 										<div class="row ">
-											<a href="#">
+											<a href="${pageContext.request.contextPath}/bai-viet/${u.idbb}">
 												<img style="width: 100%;" src="./assets/images/${u.hinhanh1 }" alt="${u.tieude }">
 												<p style="text-align: justify; padding-top: 10px;" class="summary">${u.tieude }</p>
 											</a>
@@ -129,7 +130,7 @@
 							<div class="col-sm-8 topNewsMain ">
 								<div style="width: 95%; margin: auto;">
 									<!-- ${TOPNEW.getIdbb()} -->
-									<a href="#">
+									<a href="${pageContext.request.contextPath}/bai-viet/${TOPNEW.getIdbb()}">
 										<img style="width: 100%;" src="./assets/images/${TOPNEW.getHinhanh1() }" alt="${TOPNEW.getTieude() }">
 										<div class="title" style="padding: 10px;">
 											<a title="Top news">${TOPNEW.getTieude() }</a>
@@ -147,7 +148,7 @@
 								<div style="width: 95%; margin: auto;">
 									<c:forEach var="u" items="${listRight }">
 										<div class="row colorDark text-justify">
-											<a href="#">
+											<a href="${pageContext.request.contextPath}/bai-viet/${u.idbb}">
 												<p>${u.tieude }</p>
 											</a>
 											<hr>
@@ -171,13 +172,13 @@
 									<div style="width: 100%;">
 										<div class="row">
 											<a
-												href="#">
+												href="${pageContext.request.contextPath}/bai-viet/${u.idbb}">
 												<img src="./assets/images/${u.hinhanh1 }" alt="${u.tieude }">
 	
 											</a>
 										</div>
 										<div class="row" style="margin-top: 10px; padding: 0 10px;">
-											<a href="" class="summary text-justify">
+											<a href="${pageContext.request.contextPath}/bai-viet/${u.idbb}" class="summary text-justify">
 												<p>${u.tieude }</p>
 											</a>
 										</div>
@@ -193,11 +194,11 @@
 				<!--RightContent -->
 				<div class="col-sm-3 sidenav RightContent">
 					<div style="width: 97%; margin: auto; padding-left: 10px;">
-						<a href="#"> <img src="./assets/images/phongchongThuocLa.png" alt="${thuocLa.tieude }"></a>
+						<a href="${pageContext.request.contextPath}/bai-viet/${thuocLa.idbb}"> <img src="./assets/images/phongchongThuocLa.png" alt="${thuocLa.tieude }"></a>
 						<a href="https://zingmp3.vn/zing-chart/index.html" target="_blank"> 
 							<img style="padding: 10px 0px; width: 95%" src="./assets/images/songvn2x.jpg" alt="">
 						</a> 
-						<a href="#">
+						<a href="https://mazdamotors.vn/" target="_blank">
 						 	<img style="height: 100%;" src="./assets/images/carRight.png" alt="">
 						</a>
 					</div>
@@ -215,13 +216,13 @@
 						<c:forEach var="u" items="${timeBBFormat }">
 							<div class="row colorDark text-justify" >
 								<div class="col-sm-4">
-									<a href="#">
+									<a href="${pageContext.request.contextPath}/bai-viet/${u.bb.idbb}">
 										<img style="width: 100%; padding-right: 10px;"
-										src="./assets/images/${u.bb.hinhanh1 }" alt="">
+										src="./assets/images/${u.bb.hinhanh1 }" alt="${u.bb.tieude }">
 									</a>
 								</div>
 								<div class="col-sm-8">
-									<a href="#"
+									<a href="${pageContext.request.contextPath}/bai-viet/${u.bb.idbb}"
 										style="text-align: justify; padding-top: 0px;" class="title2">
 										<p>${u.bb.tieude }</p>
 									</a>
@@ -276,16 +277,16 @@
 			<div class="row content tlitem dungbolo " id="timelineItem2" style="padding-bottom: 40px;">
 				<div class="col-sm-9 MainContent ">
 					<div> 
-						<a class="dungbololeft" href="#" title="[INFOGRAPHIC]  Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội">
+						<a class="dungbololeft" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}">
 							<img src="./assets/images/onhiemkk.jpg" alt="">
 						</a>
 						<div class="dungboloright">
 							<div class="title_box " style="display: flex;">
-								<a style="color: black;" href="#" rel="nofollow">ĐỪNG BỎ LỠ</a> <span class="line"></span>
+								<a style="color: black;" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}" rel="nofollow">ĐỪNG BỎ LỠ</a> <span class="line"></span>
 							</div>
 							<div class="dungboloinfo">
 								<h3>
-									<a style="color: white;" href="#">${oNhiemMT.tieude }</a>
+									<a style="color: white;" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}">${oNhiemMT.tieude }</a>
 								</h3>
 							</div>
 						</div>
@@ -293,7 +294,7 @@
 					<span class="clearfix"></span> <span class="border sprite"></span>
 				</div>
 				<div class="col-sm-3 sidenav RightContent">
-					<a href="#"> <img src="./assets/images/tuyendung.png" alt="${tuyenDung.tieude }"></a>
+					<a href="${pageContext.request.contextPath}/bai-viet/${tuyenDung.getIdbb()}"> <img src="./assets/images/tuyendung.png" alt="${tuyenDung.tieude }"></a>
 				</div>
 			</div>
 
@@ -304,25 +305,25 @@
 			<div class="row content marginBottom">
 				<div class="col-sm-4  category_box5">
 					<h2>
-						<a href="#">CÔNG NGHỆ</a>
+						<a href="${pageContext.request.contextPath}/danh-muc/3CN">CÔNG NGHỆ</a>
 					</h2>
-					<a href="#"> <img style="height: 270px;width:100%;"
+					<a href="${pageContext.request.contextPath}/danh-muc/3CN"> <img style="height: 270px;width:100%;"
 						src="./assets/images/ipad.jpg" alt="">
 					</a> 
 				</div>
 				<div class="col-sm-4  category_box5" style="margin:0px 5px;">
 					<h2>
-						<a href="#">GIÁO DỤC</a>
+						<a href="${pageContext.request.contextPath}/danh-muc/4GD">GIÁO DỤC</a>
 					</h2>
-					<a href="#"> <img style="height: 270px;width:100%;"
+					<a href="${pageContext.request.contextPath}/danh-muc/4GD"> <img style="height: 270px;width:100%;"
 						src="./assets/images/startup.png" alt="">
 					</a> 
 				</div>
 				<div class="col-sm-4  category_box5">
 					<h2>
-						<a href="#">GIẢI TRÍ</a>
+						<a href="${pageContext.request.contextPath}/danh-muc/GT">GIẢI TRÍ</a>
 					</h2>
-					<a href="#"> <img style="height: 270px;width:100%;"
+					<a href="${pageContext.request.contextPath}/danh-muc/GT"> <img style="height: 270px;width:100%;"
 						src="./assets/images/abominable1.jpg" alt="">
 					</a>
 				</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,9 +31,9 @@
 	</style>
 </head>
 <body>
-	<!-- <div id="loader">
+	<div id="loader">
 		<div id="status"></div>
-	</div> -->
+	</div>
 	<header id="header" class="header-block-top backgroungRed">
 		<div class="container">
 
@@ -49,7 +50,7 @@
 								class="icon-bar"></span>
 						</button>
 						<div class="logo">
-							<a class="navbar-brand js-scroll-trigger logo-header" href="#"
+							<a class="navbar-brand js-scroll-trigger logo-header" href="${pageContext.request.contextPath}/home"
 								data-toggle="tooltip" title="Báo điện tử VTV News"> <img
 								src="./assets/images/logoNews.png" alt="">
 							</a>
@@ -82,13 +83,20 @@
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right menuBottom">
-							<li class="active"><a style="padding:20px 3px;" 
-								href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Tin tức</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Giáo dục</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Văn hóa</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Đời sống</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Thể thao</a></li>
+							<li>
+								<a style="padding:20px 3px;" href="${pageContext.request.contextPath}/home">Trang chủ</a>
+							</li>
+							<c:forEach var="u" items="${DM}">
+								<c:choose>
+									<c:when test="${maDM.equals(u.madanhmuc) }">
+										<li class="active"><a style="padding:20px 3px;"  href="${pageContext.request.contextPath }/danh-muc/${u.madanhmuc}">${u.tendanhmuc }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a style="padding:20px 3px;"  href="${pageContext.request.contextPath }/danh-muc/${u.madanhmuc}">${u.tendanhmuc }</a></li>
+									</c:otherwise>
+								</c:choose>
+								
+							</c:forEach>
 						</ul>
 					</div>
 					<!-- end nav-collapse -->
@@ -106,42 +114,25 @@
 			<div class="row content ">
 				<div class="col-sm-9 MainContent " style="padding-top: 20px;">
 					<div class="row marginBottom">
-					
-						<div class="row colorDark text-justify" >
-							<div class="col-sm-4">
-								<a href="#">
-									<img style="width: 100%; padding-right: 10px;"
-									src="./assets/images/1572925980139ts1.jpg" alt="">
-								</a>
+						<c:forEach var="u" items="${timebbTDM}">
+							<div class="row colorDark text-justify" >
+								<div class="col-sm-4">
+									<a href="${pageContext.request.contextPath}/bai-viet/${u.bb.idbb}">
+										<img style="width: 100%; padding-right: 10px;"
+										src="./assets/images/${u.bb.hinhanh1 }" alt="${u.bb.tieude }">
+									</a>
+								</div>
+								<div class="col-sm-8">
+									<a href="${pageContext.request.contextPath}/bai-viet/${u.bb.idbb}"
+										style="text-align: justify; padding-top: 0px;" class="title2">
+										<p>${u.bb.tieude }</p>
+									</a>
+									<p style="text-transform: uppercase;">${u.bb.danhmuc.tendanhmuc } - ${u.time }</p>
+									<p class="text-justify;">${u.bb.tomtat }</p>
+								</div>
 							</div>
-							<div class="col-sm-8">
-								<a href="#"
-									style="text-align: justify; padding-top: 0px;" class="title2">
-									<p>GLTT: Dạy xác xuất thống kê từ lớp 2 có cần thiết?</p>
-								</a>
-								<p style="text-transform: uppercase;">GIÁO DỤC - 07/11/2019</p>
-								<p class="text-justify;">VTV.vn - Chương trình tọa đàm với chủ đề "Dạy xác xuất thống kê từ lớp 2 có cần thiết?" sẽ lên sóng vào 20h ngày 6/11.</p>
-							</div>
-						</div>
-						<hr>
-						<div class="row colorDark text-justify" >
-							<div class="col-sm-4">
-								<a href="#">
-									<img style="width: 100%; padding-right: 10px;"
-									src="./assets/images/1572925980139ts1.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-sm-8">
-								<a href="#"
-									style="text-align: justify; padding-top: 0px;" class="title2">
-									<p>GLTT: Dạy xác xuất thống kê từ lớp 2 có cần thiết?</p>
-								</a>
-								<p style="text-transform: uppercase;">GIÁO DỤC - 07/11/2019</p>
-								<p class="text-justify;">VTV.vn - Chương trình tọa đàm với chủ đề "Dạy xác xuất thống kê từ lớp 2 có cần thiết?" sẽ lên sóng vào 20h ngày 6/11.</p>
-							</div>
-						</div>
-						<hr>
-						
+							<hr>
+						</c:forEach>
 					</div>
 				</div>
 
@@ -161,9 +152,9 @@
 						<div class="boxweatherright_content">
 							<a href="https://vtv.vn/du-bao-thoi-tiet.htm"  target="_blank" class="boxweatherright_title"
 								style="font-size: 15px; font-weight: bold;">Bản tin thời
-								tiết 7g</a> <br> <a href="https://vtv.vn/du-bao-thoi-tiet.htm"  target="_blank"
+								tiết ${date }</a> <br> <a href="https://vtv.vn/du-bao-thoi-tiet.htm"  target="_blank"
 								title="Dự báo thời tiết" class="boxweatherright_titlebox"
-								style="line-height: 1.2">Bản tin thời tiết 7g
+								style="line-height: 1.2">Bản tin thời tiết ${date }
 								với nội dung: Diễn biến thời tiết các vùng biển...</a>
 						</div>
 						<div class="temp">
@@ -182,27 +173,25 @@
 
 			<div class="row content tlitem dungbolo " id="timelineItem2" style="padding-bottom: 40px;">
 				<div class="col-sm-9 MainContent ">
-					<a href="#"> 
-						<a class="dungbololeft" href="#" title="[INFOGRAPHIC]  Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội">
+					<div> 
+						<a class="dungbololeft" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}">
 							<img src="./assets/images/onhiemkk.jpg" alt="">
 						</a>
 						<div class="dungboloright">
 							<div class="title_box " style="display: flex;">
-								<a style="color: black;" href="#" rel="nofollow">ĐỪNG BỎ LỠ</a> <span class="line"></span>
+								<a style="color: black;" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}" rel="nofollow">ĐỪNG BỎ LỠ</a> <span class="line"></span>
 							</div>
 							<div class="dungboloinfo">
 								<h3>
-									<a style="color: white;" href="#"
-										title="[INFOGRAPHIC]  Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội">[INFOGRAPHIC]
-										Cách bảo vệ sức khỏe trước ô nhiễm không khí tại Hà Nội</a>
+									<a style="color: white;" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}">${oNhiemMT.tieude }</a>
 								</h3>
 							</div>
 						</div>
-					</a> 
+					</div> 
 					<span class="clearfix"></span> <span class="border sprite"></span>
 				</div>
 				<div class="col-sm-3 sidenav RightContent">
-					<a href="#"> <img src="./assets/images/tuyendung.png" alt=""></a>
+					<a href="${pageContext.request.contextPath}/bai-viet/${tuyenDung.getIdbb()}"> <img src="./assets/images/${tuyenDung.hinhanh1 }" alt="${tuyenDung.tieude }"></a>
 				</div>
 			</div>
 
@@ -213,25 +202,25 @@
 			<div class="row content marginBottom">
 				<div class="col-sm-4  category_box5">
 					<h2>
-						<a href="#">CÔNG NGHỆ</a>
+						<a href="${pageContext.request.contextPath}/danh-muc/3CN">CÔNG NGHỆ</a>
 					</h2>
-					<a href="#"> <img style="height: 270px;width:100%;"
+					<a href="${pageContext.request.contextPath}/danh-muc/3CN"> <img style="height: 270px;width:100%;"
 						src="./assets/images/ipad.jpg" alt="">
 					</a> 
 				</div>
 				<div class="col-sm-4  category_box5" style="margin:0px 5px;">
 					<h2>
-						<a href="#">GIÁO DỤC</a>
+						<a href="${pageContext.request.contextPath}/danh-muc/4GD">GIÁO DỤC</a>
 					</h2>
-					<a href="#"> <img style="height: 270px;width:100%;"
+					<a href="${pageContext.request.contextPath}/danh-muc/4GD"> <img style="height: 270px;width:100%;"
 						src="./assets/images/startup.png" alt="">
 					</a> 
 				</div>
 				<div class="col-sm-4  category_box5">
 					<h2>
-						<a href="#">GIẢI TRÍ</a>
+						<a href="${pageContext.request.contextPath}/danh-muc/GT">GIẢI TRÍ</a>
 					</h2>
-					<a href="#"> <img style="height: 270px;width:100%;"
+					<a href="${pageContext.request.contextPath}/danh-muc/GT"> <img style="height: 270px;width:100%;"
 						src="./assets/images/abominable1.jpg" alt="">
 					</a>
 				</div>

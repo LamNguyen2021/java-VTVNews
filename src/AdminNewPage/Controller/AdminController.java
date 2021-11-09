@@ -14,10 +14,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import AdminNewPage.Entity.baibao;
+import AdminNewPage.Entity.danhmuc;
 import AdminNewPage.Entity.timeBB;
 
 @Controller
@@ -91,9 +93,69 @@ public class AdminController {
 		String date = hour + "g  " + day + "/" + month + "/" + year;
 		model.addAttribute("date", date);
 		
+		String hql3 = "FROM danhmuc";
+		Query query3 = session1.createQuery(hql3);
+		List<danhmuc> list3 = query3.list();
+		model.addAttribute("DM", list3);
+		
 		
 		return "home/home";
 	}
+	
+	@RequestMapping("danh-muc/{madanhmuc}")
+	public String BVTheoDM(ModelMap model, @PathVariable("madanhmuc") String maDM) {
+		
+		Session session1 = factory.openSession();
+		
+		String Onhiem = "FROM baibao WHERE idbb=2";
+		Query queryOnhiem = session1.createQuery(Onhiem);
+		baibao OnhiemBB = new baibao();
+		OnhiemBB = (baibao) queryOnhiem.list().get(0);
+		//System.out.println("O nhiem: " + OnhiemBB.getTieude());
+		model.addAttribute("oNhiemMT", OnhiemBB);
+		
+		String tuyenDung = "FROM baibao WHERE idbb=3";
+		Query querytuyenDung = session1.createQuery(tuyenDung);
+		baibao tuyenDungBB = new baibao();
+		tuyenDungBB = (baibao) querytuyenDung.list().get(0);
+		model.addAttribute("tuyenDung", tuyenDungBB);
+		
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH) + 1;
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		
+		String date = hour + "g  " + day + "/" + month + "/" + year;
+		model.addAttribute("date", date);
+		
+		String hql3 = "FROM danhmuc";
+		Query query3 = session1.createQuery(hql3);
+		List<danhmuc> list3 = query3.list();
+		model.addAttribute("DM", list3);
+		
+		String bvTheoDM = "FROM baibao WHERE madanhmuc = '" + maDM + "' ORDER BY ngaydang DESC";
+		Query querybvTheoDM = session1.createQuery(bvTheoDM);
+		List<baibao> bbTDM = querybvTheoDM.list();
+		List<timeBB> timebbTDM = new ArrayList<timeBB>();
+		for(baibao i : bbTDM) {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			String time = format.format(i.getNgaydang());
+			//System.out.println("ngay format: " + time);
+			timebbTDM.add(new timeBB(time, i));
+		}
+		model.addAttribute("timebbTDM", timebbTDM);
+		model.addAttribute("maDM", maDM);
+		
+		return "home/baiBaoTheoDanhMuc";
+	}
+	
+	@RequestMapping("bai-viet/{idbb}")
+	public String baiViet(ModelMap model) {
+		return "home/article";
+	}
+	
 }
 
 
