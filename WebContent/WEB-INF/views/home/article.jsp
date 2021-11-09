@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,7 @@
 								class="icon-bar"></span>
 						</button>
 						<div class="logo">
-							<a class="navbar-brand js-scroll-trigger logo-header" href="#"
+							<a class="navbar-brand js-scroll-trigger logo-header" href="${pageContext.request.contextPath}/home"
 								data-toggle="tooltip" title="Báo điện tử VTV News"> <img
 								src="./assets/images/logoNews.png" alt="">
 							</a>
@@ -82,13 +83,18 @@
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right menuBottom">
-							<li class="active"><a style="padding:20px 3px;" 
+							<li><a style="padding:20px 3px;" 
 								href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Tin tức</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Giáo dục</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Văn hóa</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Đời sống</a></li>
-							<li ><a style="padding:20px 3px;"  href="#">Thể thao</a></li>
+							<c:forEach var="u" items="${DM }">
+								<c:choose>
+									<c:when test="${danhMuc.equals(u.madanhmuc) }">
+										<li class="active"><a style="padding:20px 3px;"  href="${pageContext.request.contextPath }/danh-muc/${u.madanhmuc}">${u.tendanhmuc }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a style="padding:20px 3px;"  href="${pageContext.request.contextPath }/danh-muc/${u.madanhmuc}">${u.tendanhmuc }</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 						</ul>
 					</div>
 					<!-- end nav-collapse -->
@@ -111,37 +117,32 @@
 						<div class="">
 						
 							<!-- LEFT ARTICLLE  -->
-							<div class="" style="width: 800px; margin: auto;">
-								<div class="">
-									<p class="" style="padding-top: 10px;">
+							<div style="width: 800px; margin: auto;">
+								<div>
+									<p style="padding-top: 10px;">
 										<a
 											style="border-bottom: 4px solid #d6090a; text-transform: uppercase; padding-bottom: 10px; font-size: 17px; font-weight: bold;"
-											href="#" title="">THẾ GIỚI</a>
+											href="${pageContext.request.contextPath }/danh-muc/${BaiViet.bb.danhmuc.madanhmuc}" title="">${BaiViet.bb.danhmuc.tendanhmuc }</a>
 										<a class="sprite"></a>
 									</p>
 								</div>
-								<h1 class="title_detail" data-field="title">Australia đóng cửa di sản thế giới Uluru</h1>
+								<h1 class="title_detail" data-field="title">${BaiViet.bb.tieude }</h1>
 								<p class="author">
 									<i class="glyphicon glyphicon-user"></i>
-									Nguyễn Ngân
-									<span class="time"
-										style="padding: 0 5px 0;">-<i
-										class="glyphicon glyphicon-time" style="padding-left: 5px;"></i>2019-11-11
+									${BaiViet.bb.taikhoan.hoten }
+									<span class="time" style="padding: 0 5px 0;">
+										<i class="glyphicon glyphicon-time" style="padding-left: 5px;"></i>
+										${BaiViet.time }
 									</span>
 								</p>
 
-								<img class="news-avatar" data-field="firstphoto" alt=""
-									src="./assets/images/1572925980139ts1.jpg" width="100%">
+								<img class="news-avatar" data-field="firstphoto" alt="${BaiViet.bb.tieude }"
+									src="./assets/images/${BaiViet.bb.hinhanh1 }" width="100%">
 								<div class="avatar-desc">(nguồn sưu tầm)</div>
 
 
 								<div data-field="body" class="ta-justify" id="entry-body">
-									<p class="text-justify" style="padding: 10px 0px;">
-										Uluru là một ngọn núi sa thạch lớn với chiều dài 349m, còn được biết đến với tên gọi là 
-										Ayers Rock nằm ở trung tâm công viên quốc gia Uluru-Kata Tjuta thuộc lãnh thổ phía bắc 
-										Australia. Đây là một địa điểm thu hút khách du lịch hàng đầu ở Australia nhờ khả năng 
-										tự đổi màu vào các thời điểm khác nhau trong ngày của khối đá khổng lồ.
-									</p>
+									<p class="text-justify" style="padding: 10px 0px;">${BaiViet.bb.noidung1 }</p>
 
 									<%-- <c:choose>
 										<c:when test='${BaiViet.getHinhanh2()!=null}'>

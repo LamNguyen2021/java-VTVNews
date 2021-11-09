@@ -152,7 +152,27 @@ public class AdminController {
 	}
 	
 	@RequestMapping("bai-viet/{idbb}")
-	public String baiViet(ModelMap model) {
+	public String baiViet(ModelMap model, @PathVariable("idbb") int idbb) {
+		Session session1 = factory.openSession();
+		
+		String hql3 = "FROM danhmuc";
+		Query query3 = session1.createQuery(hql3);
+		List<danhmuc> list3 = query3.list();
+		model.addAttribute("DM", list3);
+		
+		String hql4 = "FROM baibao WHERE idbb = " + idbb;
+		Query queryhql4 = session1.createQuery(hql4);
+		baibao list4 = (baibao) queryhql4.list().get(0); // lấy được chi tiết bài viết rồi nè
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String time = format.format(list4.getNgaydang());
+		timeBB timelist4 = new timeBB(time, list4); // format lại ngày giờ cho bài báo
+		
+		model.addAttribute("BaiViet", timelist4);
+		String danhMuc = list4.getDanhmuc().getMadanhmuc();
+		model.addAttribute("danhMuc", danhMuc);
+		
+		
 		return "home/article";
 	}
 	
