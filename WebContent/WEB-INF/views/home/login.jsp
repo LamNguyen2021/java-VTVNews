@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,31 +21,34 @@
 	<base href="${pageContext.servletContext.contextPath }/">
 </head>
 <body>
+	${message }
 	<div id="logreg-forms">
-		<form>
+		<form:form action="${pageContext.request.contextPath }/checkLogin" modelAttribute="TaiKhoan">
 			<h1 class="h3 mb-3 font-weight-bold " style="text-align: center;">Đăng nhập</h1>
 			<div style="margin-bottom: 10px;">
-				<input type="email" class="form-control" placeholder="Email" />
+				<form:input path="username" type="email" class="form-control" placeholder="Email" />
+				<form:errors path="username" style="color: red;"/>
 			</div>
 			<div style="margin-bottom: 10px;">
-				<input type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
+				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
+				<form:errors path="password" style="color: red;"/>
 			</div>
 			
 			<button class="btn btn-success btn-block" type="submit" style="font-size: 15px;">
-				<i class="fas fa-sign-in-alt"></i>ĐĂNG NHẬP
+				ĐĂNG NHẬP
 			</button>
 			
 			<a id="forgot_pswd" href="#">Quên mật khẩu?</a>
 			<hr>
 			
 			<!-- <p>Don't have an account!</p>  -->
-			<a href="#">
+			<a href="${pageContext.request.contextPath }/register">
 				<button class="btn btn-primary btn-block" type="button" style="font-size: 15px;">
-					<i class="fas fa-user-plus"></i>Đăng kí tài khoản mới
+					Đăng kí tài khoản mới
 				</button>
 			</a>
-			<a href="#">Quay về trang chủ</a>
-		</form>
+			<a href="${pageContext.request.contextPath }/home">Quay về trang chủ</a>
+		</form:form>
 		<br>
 	</div>
 

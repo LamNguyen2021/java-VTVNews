@@ -97,6 +97,13 @@ public class taikhoan {
 	public void setBaibao(Collection<baibao> baibao) {
 		this.baibao = baibao;
 	}
+
+	@Override
+	public String toString() {
+		return "taikhoan [username=" + username + ", password=" + password + ", hoten=" + hoten + ", sdt=" + sdt
+				+ ", vaitro=" + vaitro + ", gioitinh=" + gioitinh + "]";
+	}
+	
 	
 	
 }

@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import AdminNewPage.Entity.baibao;
 import AdminNewPage.Entity.binhluan;
 import AdminNewPage.Entity.danhmuc;
+import AdminNewPage.Entity.taikhoan;
 import AdminNewPage.Entity.timeBB;
 import AdminNewPage.Entity.timeBL;
 
@@ -31,7 +34,8 @@ public class AdminController {
 	SessionFactory factory;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public String index(ModelMap model) {
+	public String index(ModelMap model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		
 		Session session1 = factory.openSession();
 		String hql = "FROM baibao ORDER BY ngaydang DESC";
@@ -99,6 +103,19 @@ public class AdminController {
 		Query query3 = session1.createQuery(hql3);
 		List<danhmuc> list3 = query3.list();
 		model.addAttribute("DM", list3);
+		
+		if(session.getAttribute("users") != null) {
+			//taikhoan currentSSTK = (taikhoan) session.getAttribute("users");
+			taikhoan tk = new taikhoan();
+			tk.setHoten( ((taikhoan) session.getAttribute("users")).getHoten());
+			tk.setUsername( ((taikhoan) session.getAttribute("users")).getUsername());
+			tk.setAnh(((taikhoan) session.getAttribute("users")).getAnh());
+			tk.setSdt(((taikhoan) session.getAttribute("users")).getSdt());
+			tk.setGioitinh(((taikhoan) session.getAttribute("users")).getGioitinh());
+			tk.setPassword(((taikhoan) session.getAttribute("users")).getPassword());
+			tk.setVaitro(((taikhoan) session.getAttribute("users")).getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
 		
 		
 		return "home/home";

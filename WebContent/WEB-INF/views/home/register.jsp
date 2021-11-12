@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,32 +49,32 @@
 </head>
 <body>
 	<div id="logreg-form" style="width: 412px; margin: 10vh auto; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-		<form class="form-signup" id="signup">
+		<form:form class="form-signup" id="signup" action="register" modelAttribute="taikhoan">
 			<div>
 				<h1 class="h3 mb-3 font-weight-bold " style="text-align: center;color: #b70002;">
 					Đăng kí tài khoản
 				</h1>
 			</div>
 			<div style="margin-bottom: 10px;">
-				<input type="text" class="form-control" placeholder="Ho ten" />
+				<form:input path="hoten" type="text" class="form-control" placeholder="Ho ten" />
 				<!-- <form:errors path="hoten" style="color:red;" /> -->
 			</div>
 			<div style="margin-bottom: 10px;">
-				<input type="number" class="form-control" placeholder="Số diện thoại" />
+				<form:input path="sdt" type="number" class="form-control" placeholder="Số diện thoại" />
 				<!-- <form:errors path="sdt" style="color:red;" /> -->
 			</div>
 			<div style="margin-bottom: 10px;">
-				<input type="email" class="form-control" placeholder="Email" />
+				<form:input path="email" type="email" class="form-control" placeholder="Email" />
 				<!-- <form:errors path="username" style="color:red;" /> -->
 			</div>
 			<div style="margin-bottom: 10px;">
-				<input type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
+				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
 				<!-- <form:errors path="password" style="color:red;" /> -->
 			</div>
-			<select style="margin-bottom:10px;">
-				<option value="Nữ">Nữ</option>
-				<option value="Nam">Nam</option>
-			</select>
+			<form:select path="gioitinh" style="margin-bottom:10px;">
+				<form:option value="Nữ"></form:option>
+				<form:option value="Nam"></form:option>
+			</form:select>
 			<br>
 			
 			<span>Chọn ảnh đại diện:</span>
@@ -85,10 +86,10 @@
 					<i class="fas fa-user-plus"></i> Đăng kí
 				</button>
 			</div>
-			<a href="#" id="cancel_signup" style="font-size:18px;"> 
+			<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size:18px;"> 
 				<i class="glyphicon glyphicon-backward"></i> Trở về
 			</a>
-		</form>
+		</form:form>
 		<br>
 	</div>
 
