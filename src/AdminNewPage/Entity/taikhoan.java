@@ -101,9 +101,8 @@ public class taikhoan {
 	@Override
 	public String toString() {
 		return "taikhoan [username=" + username + ", password=" + password + ", hoten=" + hoten + ", sdt=" + sdt
-				+ ", vaitro=" + vaitro + ", gioitinh=" + gioitinh + "]";
+				+ ", vaitro=" + vaitro + ", anh=" + anh + ", gioitinh=" + gioitinh + "]";
 	}
-	
-	
+
 	
 }

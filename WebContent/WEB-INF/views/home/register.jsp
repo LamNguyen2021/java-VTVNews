@@ -48,8 +48,12 @@
 	</style>
 </head>
 <body>
-	<div id="logreg-form" style="width: 412px; margin: 10vh auto; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-		<form:form class="form-signup" id="signup" action="register" modelAttribute="taikhoan">
+	<div id="logreg-form" style="width: 412px; margin: 10vh auto; background-color: #f3f3f3; 
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); 
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
+
+		<form:form action="register" class="form-signup" id="signup" 
+		method="post" modelAttribute="taikhoan" enctype="multipart/form-data">
 			<div>
 				<h1 class="h3 mb-3 font-weight-bold " style="text-align: center;color: #b70002;">
 					Đăng kí tài khoản
@@ -57,23 +61,25 @@
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="hoten" type="text" class="form-control" placeholder="Ho ten" />
-				<!-- <form:errors path="hoten" style="color:red;" /> -->
+				<form:errors path="hoten" style="color:red;" />
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="sdt" type="number" class="form-control" placeholder="Số diện thoại" />
-				<!-- <form:errors path="sdt" style="color:red;" /> -->
+				<form:errors path="sdt" style="color:red;" />
 			</div>
 			<div style="margin-bottom: 10px;">
-				<form:input path="email" type="email" class="form-control" placeholder="Email" />
-				<!-- <form:errors path="username" style="color:red;" /> -->
+				<form:input path="username" type="email" class="form-control" placeholder="Email" />
+				<form:errors path="username" style="color:red;" />
 			</div>
+
 			<div style="margin-bottom: 10px;">
 				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
-				<!-- <form:errors path="password" style="color:red;" /> -->
+				<form:errors path="password" style="color:red;" />
 			</div>
+
 			<form:select path="gioitinh" style="margin-bottom:10px;">
-				<form:option value="Nữ"></form:option>
-				<form:option value="Nam"></form:option>
+				<form:option value="Nữ">Nữ</form:option>
+				<form:option value="Nam">Nam</form:option>
 			</form:select>
 			<br>
 			
@@ -83,12 +89,12 @@
 			</div>
 			<div style="margin-bottom: 10px;">
 				<button style="background-color: #b70002;color:white;" class="btn  btn-block" type="submit">
-					<i class="fas fa-user-plus"></i> Đăng kí
+					Đăng kí
 				</button>
 			</div>
-			<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size:18px;"> 
-				<i class="glyphicon glyphicon-backward"></i> Trở về
-			</a>
+			<a href="${pageContext.request.contextPath}/login" id="cancel_signup" style="font-size:18px;"> <i
+				class="glyphicon glyphicon-backward"></i> Trở về</a>
+
 		</form:form>
 		<br>
 	</div>
