@@ -51,7 +51,7 @@
 	<div id="logreg-form" style="width: 412px; margin: 10vh auto; background-color: #f3f3f3; 
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); 
 	transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-
+	
 		<form:form action="register" class="form-signup" id="signup" 
 		method="post" modelAttribute="taikhoan" enctype="multipart/form-data">
 			<div>
@@ -60,7 +60,7 @@
 				</h1>
 			</div>
 			<div style="margin-bottom: 10px;">
-				<form:input path="hoten" type="text" class="form-control" placeholder="Ho ten" />
+				<form:input path="hoten" type="text" class="form-control" placeholder="Họ tên" />
 				<form:errors path="hoten" style="color:red;" />
 			</div>
 			<div style="margin-bottom: 10px;">
@@ -71,7 +71,6 @@
 				<form:input path="username" type="email" class="form-control" placeholder="Email" />
 				<form:errors path="username" style="color:red;" />
 			</div>
-
 			<div style="margin-bottom: 10px;">
 				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
 				<form:errors path="password" style="color:red;" />
@@ -87,11 +86,13 @@
 			<div style="margin-bottom: 10px; border:none; background:#f3f3f3;"  >								
 				<input type="file" name="anh" class="custom-file-input" style="margin-bottom: 20px;padding: 10px 23px;"/>									
 			</div>
+			
 			<div style="margin-bottom: 10px;">
 				<button style="background-color: #b70002;color:white;" class="btn  btn-block" type="submit">
 					Đăng kí
 				</button>
 			</div>
+			
 			<a href="${pageContext.request.contextPath}/login" id="cancel_signup" style="font-size:18px;"> <i
 				class="glyphicon glyphicon-backward"></i> Trở về</a>
 

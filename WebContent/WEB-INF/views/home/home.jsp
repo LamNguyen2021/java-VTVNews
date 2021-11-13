@@ -71,7 +71,7 @@
 														${TKLogin.getHoten()}</h4>
 													<img class="dropdown-toggle" data-toggle="dropdown"
 														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
-														src="./assets/images/${TKLogin.getAnh()}" />
+														src="assets/images/${TKLogin.getAnh()}" />
 													<ul class="dropdown-menu"
 														style="color: black; margin-left: 900px; top: 50px;">
 														<li style="display: flex;"><span
