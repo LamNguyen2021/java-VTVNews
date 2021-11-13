@@ -38,7 +38,7 @@
 				ĐĂNG NHẬP
 			</button>
 			
-			<a id="forgot_pswd" href="#">Quên mật khẩu?</a>
+			<a id="forgot_pswd" href="${pageContext.request.contextPath }/forgot-password">Quên mật khẩu?</a>
 			<hr>
 			
 			<!-- <p>Don't have an account!</p>  -->

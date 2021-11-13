@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -39,6 +42,9 @@ public class taikhoanController {
 	@Autowired
 	@Qualifier("uploadFile")
 	UploadFile baseUploadFile;
+	
+	@Autowired
+	JavaMailSender mailer;
 
 	@RequestMapping("login")
 	public String login(ModelMap model) {
@@ -254,6 +260,53 @@ public class taikhoanController {
 		}
 		
 		//return "home/register";
+	}
+	
+	@RequestMapping("forgot-password") 
+	public String forgotPassword(ModelMap model) {
+		model.addAttribute("emailUser", new taikhoan());
+		return "home/forgotPassword";
+	}
+	
+	@RequestMapping(value = "reset-password", method = RequestMethod.POST)
+	public String resetPassword(@ModelAttribute("emailUser") taikhoan taikhoan, BindingResult errors) {
+		String username = taikhoan.getUsername();
+		
+		if(username.trim().length() == 0) {
+			errors.rejectValue("username", "taikhoan", "Bạn chưa nhập email");
+			return "home/forgotPassword";
+		} else if(!kiemTraTaiKhoanTonTai(taikhoan.getUsername())) {
+			errors.rejectValue("username", "taikhoan", "Email không tồn tại. Vui lòng kiểm tra lại");
+			return "home/forgotPassword";
+		}
+		
+		try {
+			MimeMessage mail = mailer.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+			
+			String subject = "Website tin tức VTV - đặt lại mật khẩu";
+			String from = "9.4ngoclam@gmail.com";
+			String to = username;
+			String body = "Đây là mật khẩu mới của bạn: 123456";
+			String passNew = "123456";
+			
+			helper.setFrom(from);
+			helper.setTo(to);
+			helper.setReplyTo(from);
+			helper.setSubject(subject);
+			helper.setText(body, true);
+			
+			mailer.send(mail);
+			
+			System.out.println("Gui mail thanh cong");
+			taikhoan.setUsername("");
+			
+		} catch (Exception e) {
+			System.out.println("Gui mail that bai");
+		}
+		
+			
+		return "home/forgotPassword";
 	}
 }
 

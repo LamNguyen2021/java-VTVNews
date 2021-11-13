@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +21,20 @@
 </head>
 <body>
 	<div id="logreg-forms">
-		<form>
+		<form:form action="${pageContext.request.contextPath }/reset-password" modelAttribute="emailUser">
 			<div>
-				<input type="email" id="email" class="form-control" placeholder="Email" />
+				<form:input path="username" type="email" id="email" class="form-control" placeholder="Email" />
 			</div>
-			<!-- <form:errors path="username" style="color:red;padding:10px;" /> -->
+			<form:errors path="username" style="color:red;padding:10px;" />
 			<p style="padding:10px; color: #1ea29b;font-size:15px;">Ấn nút Gửi và kiểm tra email của bạn</p>
 			<div>
 				<button  class="btn btn-primary btn-block" type="submit">Gửi</button>
 			</div>
 			<div>
-				<a href="#" id="cancel_signup" style="font-size:18px;"> 
+				<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size:18px;"> 
 				<i class="glyphicon glyphicon-backward"></i> Trở về</a>
 			</div>
-		</form>
+		</form:form>
 
 
 		<%-- ${message }
