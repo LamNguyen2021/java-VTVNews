@@ -78,7 +78,7 @@
 															class="glyphicon glyphicon-cog"
 															style="color: #d1d3e2; background-color: white;"></span>
 															<a style="color: black; background-color: white;"
-															href="update/${TKLogin.getUsername()}"> Hồ Sơ</a></li>
+															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
 														<li style="display: flex;"><span
 															class="glyphicon glyphicon-off"
 															style="color: #d1d3e2; background-color: white;"></span>
@@ -100,7 +100,7 @@
 															class="glyphicon glyphicon-cog"
 															style="color: #d1d3e2; background-color: white;"></span>
 															<a style="color: black; background-color: white;"
-															href="update/${TKLogin.getUsername()}"> Hồ Sơ</a></li>
+															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
 														<li style="display: flex;"><span
 															class="glyphicon glyphicon-off"
 															style="color: #d1d3e2; background-color: white;"></span>
@@ -120,7 +120,7 @@
 													</button>
 													<ul class="dropdown-menu" style="color: black; margin-left: 900px; top: 50px;">
 														<li class="dropdown-item" style="display: flex;"><span class="glyphicon glyphicon-cog" style="color: #d1d3e2; background-color: white;"></span>
-															<a style="color: black; background-color: white;" href="update/${TKLogin.getUsername()}">Hồ Sơ</a>
+															<a style="color: black; background-color: white;" href="${pageContext.request.contextPath }/update-profile">Hồ Sơ</a>
 														</li>
 														<li class="dropdown-item" style="display: flex;"><span
 															class="glyphicon glyphicon-off"

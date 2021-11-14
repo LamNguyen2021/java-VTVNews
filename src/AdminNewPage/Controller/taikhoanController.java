@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -335,9 +336,76 @@ public class taikhoanController {
 		} catch (Exception e) {
 			System.out.println("Gui mail that bai");
 		}
-		
 			
 		return "home/forgotPassword";
+	}
+	
+	@RequestMapping(value = "update-profile", method = RequestMethod.GET)
+	public String editProfile(@ModelAttribute("TKLogin") taikhoan tk, ModelMap model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("users") != null) {
+			//taikhoan currentSSTK = (taikhoan) session.getAttribute("users");
+			tk = new taikhoan();
+			tk.setHoten( ((taikhoan) session.getAttribute("users")).getHoten());
+			tk.setUsername( ((taikhoan) session.getAttribute("users")).getUsername());
+			tk.setAnh(((taikhoan) session.getAttribute("users")).getAnh());
+			tk.setSdt(((taikhoan) session.getAttribute("users")).getSdt());
+			tk.setGioitinh(((taikhoan) session.getAttribute("users")).getGioitinh());
+			tk.setPassword(((taikhoan) session.getAttribute("users")).getPassword());
+			tk.setVaitro(((taikhoan) session.getAttribute("users")).getVaitro());
+			model.addAttribute("TKLogin", tk);
+		} else {
+			System.out.println("Loi lay du lieu");
+		}
+		return "home/editProfile";
+	}
+	
+	@RequestMapping(value = "update-profile", method = RequestMethod.POST)
+	public String editProfile(@ModelAttribute("TKLogin") taikhoan taikhoan, @RequestParam("anhEdit") MultipartFile anhEdit, HttpServletRequest request,BindingResult errors) {
+		
+		if(taikhoan.getHoten().trim().length() == 0) {
+			errors.rejectValue("hoten", "taikhoan", "Bạn chưa nhập họ tên");
+			return "home/editProfile";
+		} else if(taikhoan.getSdt().trim().length() == 0) {
+			errors.rejectValue("hoten", "taikhoan", "Bạn chưa nhập số điện thoại");
+			return "home/editProfile";
+		} else if(taikhoan.getPassword().trim().length() == 0) {
+			errors.rejectValue("password", "taikhoan", "Bạn chưa nhập mật khẩu");
+			return "home/editProfile";
+		}
+		
+		if(!anhEdit.isEmpty()) {
+			try {
+				String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
+				String fileName = date + anhEdit.getOriginalFilename(); // đặt tên file
+				String photoPath = baseUploadFile.getBasePath() + File.separator + fileName; // đặt đường dẫn hình ảnh
+				
+				anhEdit.transferTo(new File(photoPath));
+				Thread.sleep(2500);
+				
+				taikhoan.setAnh(fileName);
+			} catch (Exception e) {
+				System.out.println("Lỗi upload hình ảnh");
+			}
+		}
+		
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(taikhoan);
+			t.commit();
+			HttpSession session2 = request.getSession();
+			session2.setAttribute("users", taikhoan);
+			return "redirect:home";
+		} catch (Exception e) {
+			System.out.println("Loi, khong cap nhat duoc tai khoan trong DB");
+			t.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return "home/editProfile";
 	}
 }
 
