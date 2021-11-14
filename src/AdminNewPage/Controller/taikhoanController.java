@@ -2,10 +2,12 @@ package AdminNewPage.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
@@ -268,8 +270,19 @@ public class taikhoanController {
 		return "home/forgotPassword";
 	}
 	
+	public String generateRandomPassword(int len, int randNumOrigin, int randNumBound)
+	{
+		SecureRandom random = new SecureRandom();
+		return random.ints(randNumOrigin, randNumBound + 1)
+				.filter(i -> Character.isAlphabetic(i) || Character.isDigit(i))
+				.limit(len)
+				.collect(StringBuilder::new, StringBuilder::appendCodePoint,
+						StringBuilder::append)
+				.toString();
+	}
+	
 	@RequestMapping(value = "reset-password", method = RequestMethod.POST)
-	public String resetPassword(@ModelAttribute("emailUser") taikhoan taikhoan, BindingResult errors) {
+	public String resetPassword(@ModelAttribute("emailUser") taikhoan taikhoan, ModelMap model, BindingResult errors) {
 		String username = taikhoan.getUsername();
 		
 		if(username.trim().length() == 0) {
@@ -284,11 +297,15 @@ public class taikhoanController {
 			MimeMessage mail = mailer.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mail, true);
 			
+			//'0' - '9' => 48-57 in ASCII
+			//'A' - 'Z' => 65-90 in ASCII
+			//'a' - 'z' => 97-122 in ASCII
+			
 			String subject = "Website tin tức VTV - đặt lại mật khẩu";
 			String from = "9.4ngoclam@gmail.com";
 			String to = username;
-			String body = "Đây là mật khẩu mới của bạn: 123456";
-			String passNew = "123456";
+			String passNew = this.generateRandomPassword(6, 48, 122);
+			String body = "Đây là mật khẩu mới của bạn: " + passNew;
 			
 			helper.setFrom(from);
 			helper.setTo(to);
@@ -296,10 +313,24 @@ public class taikhoanController {
 			helper.setSubject(subject);
 			helper.setText(body, true);
 			
-			mailer.send(mail);
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
+			taikhoan tkresetPW = (taikhoan) session.get(taikhoan.class, username);
+			try {
+				tkresetPW.setPassword(passNew);
+				session.update(tkresetPW);
+				t.commit();
+				mailer.send(mail);
+				System.out.println("Gui mail thanh cong");
+			} catch (Exception e) {
+				System.out.println("Loi, khong cap nhat duoc mat khau trong DB");
+				t.rollback();
+			} finally {
+				session.close();
+			}
 			
-			System.out.println("Gui mail thanh cong");
-			taikhoan.setUsername("");
+			//model.addAttribute("message", "Gui mail thanh cong. Vui long kiem tra gmail va nhap mat khau moi");
+			return "redirect:/login";
 			
 		} catch (Exception e) {
 			System.out.println("Gui mail that bai");
