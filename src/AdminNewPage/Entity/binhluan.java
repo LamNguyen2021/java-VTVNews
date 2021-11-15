@@ -72,6 +72,11 @@ public class binhluan {
 	public void setTaikhoan(taikhoan taikhoan) {
 		this.taikhoan = taikhoan;
 	}
+
+	@Override
+	public String toString() {
+		return "binhluan [idbl=" + idbl + ", noidung=" + noidung + ", ngaybl=" + ngaybl + "]";
+	}
 	
 	
 }

@@ -60,39 +60,34 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav-top">
-
 							<li class="nav-top">
 								<div class="login">
 									<div style="display: flex; align-items: center; justify-content: space-between;">
 										<c:choose>
 											<c:when test="${TKLogin.getAnh()!=null && TKLogin.getVaitro()==0}">
-													<h4
-														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
-														${TKLogin.getHoten()}</h4>
-													<img class="dropdown-toggle" data-toggle="dropdown"
-														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
-														src="assets/images/${TKLogin.getAnh()}" />
-													<ul class="dropdown-menu"
-														style="color: black; margin-left: 900px; top: 50px;">
-														<li style="display: flex;"><span
-															class="glyphicon glyphicon-cog"
-															style="color: #d1d3e2; background-color: white;"></span>
-															<a style="color: black; background-color: white;"
-															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
-														<li style="display: flex;"><span
-															class="glyphicon glyphicon-off"
-															style="color: #d1d3e2; background-color: white;"></span>
-															<a style="color: black;"
-															href="${pageContext.request.contextPath}/logout">Đăng
-																Xuất</a></li>
-													</ul>
+												<h4 style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+													${TKLogin.getHoten()}
+												</h4>
+												<img class="dropdown-toggle" data-toggle="dropdown"
+													style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+													src="assets/images/${TKLogin.getAnh()}" />
+												<ul class="dropdown-menu" style="color: black; margin-left: 900px; top: 50px;">
+													<li style="display: flex;">
+														<span class="glyphicon glyphicon-cog" style="color: #d1d3e2; background-color: white;"></span>
+														<a style="color: black; background-color: white;" href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a>
+													</li>
+													<li style="display: flex;">
+														<span class="glyphicon glyphicon-off" style="color: #d1d3e2; background-color: white;"></span>
+														<a style="color: black;" href="${pageContext.request.contextPath}/logout">Đăng Xuất</a>
+													</li>
+												</ul>
 											</c:when>
 											<c:when test="${TKLogin.getAnh()==null && TKLogin.getVaiTro()==0 && TKLogin.getGioitinh().equals('Nam')}">
 													<h4
 														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
 														${TKLogin.getHoten()}</h4>
 													<img class="dropdown-toggle" data-toggle="dropdown"
-														style="width: 40px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
 														src='<c:url value="./assets/images/nam.png"></c:url>' />
 													<ul class="dropdown-menu"
 														style="color: black; margin-left: 900px; top: 50px;">
@@ -110,12 +105,11 @@
 													</ul>
 											</c:when>
 											<c:when test="${TKLogin.getAnh()==null && TKLogin.getVaiTro()==0 && TKLogin.getGioitinh().equals('Nữ')}">
-													<h4
-														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+													<h4 style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
 														${TKLogin.getHoten()}</h4>
 													<button class="dropdown-toggle" data-toggle="dropdown" type="button">
 														<img
-														style="width: 40px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
 														src='<c:url value="./assets/images/nu.png"></c:url>' />			
 													</button>
 													<ul class="dropdown-menu" style="color: black; margin-left: 900px; top: 50px;">
@@ -133,7 +127,7 @@
 											<c:otherwise>
 												<a href="${pageContext.request.contextPath}/login" data-toggle="tooltip" title="Đăng nhập"> 
 													<img
-													style="width: 30px; border-radius: 50%; background: transparent;"
+													style="width: 30px; height: 30px; border-radius: 50%; background: transparent;"
 													src="./assets/images/user1.png"
 													alt="Chua co hinh">
 												</a>

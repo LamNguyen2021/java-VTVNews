@@ -3,19 +3,23 @@ package AdminNewPage.Controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -122,7 +126,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("danh-muc/{madanhmuc}")
-	public String BVTheoDM(ModelMap model, @PathVariable("madanhmuc") String maDM) {
+	public String BVTheoDM(ModelMap model, @PathVariable("madanhmuc") String maDM, HttpServletRequest request) {
 		
 		Session session1 = factory.openSession();
 		
@@ -167,11 +171,24 @@ public class AdminController {
 		model.addAttribute("timebbTDM", timebbTDM);
 		model.addAttribute("maDM", maDM);
 		
+		HttpSession sesion2 = request.getSession();
+		if(sesion2.getAttribute("users") != null) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(((taikhoan) sesion2.getAttribute("users")).getHoten());
+			tk.setUsername(((taikhoan) sesion2.getAttribute("users")).getUsername());
+			tk.setAnh(((taikhoan) sesion2.getAttribute("users")).getAnh());
+			tk.setSdt(((taikhoan) sesion2.getAttribute("users")).getSdt());
+			tk.setGioitinh(((taikhoan) sesion2.getAttribute("users")).getGioitinh());
+			tk.setPassword(((taikhoan) sesion2.getAttribute("users")).getPassword());
+			tk.setVaitro(((taikhoan) sesion2.getAttribute("users")).getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
 		return "home/baiBaoTheoDanhMuc";
 	}
 	
 	@RequestMapping("bai-viet/{idbb}")
-	public String baiViet(ModelMap model, @PathVariable("idbb") int idbb) {
+	public String baiViet(ModelMap model, @PathVariable("idbb") int idbb, HttpServletRequest request) {
 		Session session1 = factory.openSession();
 		
 		String hql3 = "FROM danhmuc";
@@ -207,7 +224,7 @@ public class AdminController {
 		}
 		model.addAttribute("tinLienQuan", listTinLienQuan);
 		
-		// bình luận
+		// hiển thị tất cả bình luận 
 		String binhLuan = "FROM binhluan WHERE idbb = " + idbb + " ORDER BY ngaybl DESC";
 		Query querybinhLuan = session1.createQuery(binhLuan);
 		List<binhluan> listBinhLuan = querybinhLuan.list();
@@ -220,10 +237,85 @@ public class AdminController {
 		}
 		model.addAttribute("listTimeBL", listTimeBL);
 		
+		HttpSession sesion2 = request.getSession();
+		if(sesion2.getAttribute("users") != null) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(((taikhoan) sesion2.getAttribute("users")).getHoten());
+			tk.setUsername(((taikhoan) sesion2.getAttribute("users")).getUsername());
+			tk.setAnh(((taikhoan) sesion2.getAttribute("users")).getAnh());
+			tk.setSdt(((taikhoan) sesion2.getAttribute("users")).getSdt());
+			tk.setGioitinh(((taikhoan) sesion2.getAttribute("users")).getGioitinh());
+			tk.setPassword(((taikhoan) sesion2.getAttribute("users")).getPassword());
+			tk.setVaitro(((taikhoan) sesion2.getAttribute("users")).getVaitro());
+			model.addAttribute("TKLogin", tk);
+			model.addAttribute("binhluan", new binhluan());
+		}
 		
+		model.addAttribute("btnStatus", "btnAdd");
+
 		return "home/article";
 	}
 	
+	@RequestMapping(value = "binh-luan/{idbb}", method = RequestMethod.POST, params = "btnAdd")
+	public String binhLuanBB(@PathVariable("idbb") int idbb, @ModelAttribute("binhluan") binhluan binhluan) {
+		binhluan.setNgaybl(new Date());
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.save(binhluan);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("Loi, khong luu duoc binh luan vao DB");
+		} finally {
+			session.close();
+		}
+		return "redirect:/bai-viet/{idbb}";
+	}
+	
+	@RequestMapping("xoa-binh-luan/{idbl}/{idbb}")
+	public String xoaBinhLuan(@PathVariable("idbl") int idbl, @PathVariable("idbb") int idbb) {
+		Session session = factory.openSession();
+		String hql = "FROM binhluan WHERE idbl = " + idbl;
+		Query query = session.createQuery(hql);
+		binhluan binhluancanxoa = (binhluan) query.list().get(0);
+		
+		Transaction t = session.beginTransaction();
+		try {
+			session.delete(binhluancanxoa);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("Loi, khong xoa duoc binh luan trong DB");
+		} finally {
+			session.close();
+		}
+		
+		return "redirect:/bai-viet/{idbb}";
+	}
+	
+	@RequestMapping("chinh-sua-binh-luan/{idbl}/{idbb}")
+	public String chinhSuaBinhLuan(@PathVariable("idbl") int idbl, @PathVariable("idbb") int idbb, @ModelAttribute("binhluan") binhluan binhluan, ModelMap model) {
+		System.out.println("Vao ham chinh sua binh luan: " + idbl);
+		Session session = factory.getCurrentSession();
+		String hql = "FROM binhluan WHERE idbl = " + idbl;
+		Query query = session.createQuery(hql);
+		binhluan binhluanchinhsua = (binhluan) query.list().get(0);
+		
+		model.addAttribute("binhluan", binhluanchinhsua);
+		model.addAttribute("btnStatus", "btnEdit");
+		
+		
+//		System.out.println("=====Binh luan can chinh sua: =======");
+//		System.out.println(binhluanchinhsua.getIdbl());
+//		System.out.println(binhluanchinhsua.getNoidung());
+//		System.out.println(binhluanchinhsua.getBaibao().getIdbb());
+//		System.out.println(binhluanchinhsua.getNgaybl());
+//		System.out.println(binhluanchinhsua.getTaikhoan().getUsername());
+		
+		
+		return "redirect:/bai-viet/{idbb}";
+	}
 }
 
 

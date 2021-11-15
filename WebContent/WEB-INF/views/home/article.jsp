@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,12 +32,11 @@
 	</style>
 </head>
 <body>
-	<!-- <div id="loader">
+	<div id="loader">
 		<div id="status"></div>
-	</div> -->
+	</div>
 	<header id="header" class="header-block-top backgroungRed">
 		<div class="container">
-
 			<div class="main-menu" style="padding-top:4px;">
 
 				<!-- navbar -->
@@ -62,12 +62,81 @@
 							<li class="nav-top">
 								<div class="login">
 									<div style="display: flex; align-items: center; justify-content: space-between;">
-										<a href="${pageContext.request.contextPath}/login" data-toggle="tooltip" title="Đăng nhập"> 
-											<img
-											style="width: 30px; border-radius: 50%; background: transparent;"
-											src="./assets/images/user1.png"
-											alt="Chua co hinh">
-										</a>
+										<c:choose>
+											<c:when test="${TKLogin.getAnh()!=null && TKLogin.getVaitro()==0}">
+													<h4
+														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+														${TKLogin.getHoten()}</h4>
+													<img class="dropdown-toggle" data-toggle="dropdown"
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														src="assets/images/${TKLogin.getAnh()}" />
+													<ul class="dropdown-menu"
+														style="color: black; margin-left: 900px; top: 50px;">
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-cog"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black; background-color: white;"
+															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-off"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;"
+															href="${pageContext.request.contextPath}/logout">Đăng
+																Xuất</a></li>
+													</ul>
+											</c:when>
+											<c:when test="${TKLogin.getAnh()==null && TKLogin.getVaiTro()==0 && TKLogin.getGioitinh().equals('Nam')}">
+													<h4
+														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+														${TKLogin.getHoten()}</h4>
+													<img class="dropdown-toggle" data-toggle="dropdown"
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														src='<c:url value="./assets/images/nam.png"></c:url>' />
+													<ul class="dropdown-menu"
+														style="color: black; margin-left: 900px; top: 50px;">
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-cog"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black; background-color: white;"
+															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-off"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;"
+															href="${pageContext.request.contextPath}/logout">Đăng
+																Xuất</a></li>
+													</ul>
+											</c:when>
+											<c:when test="${TKLogin.getAnh()==null && TKLogin.getVaiTro()==0 && TKLogin.getGioitinh().equals('Nữ')}">
+													<h4
+														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+														${TKLogin.getHoten()}</h4>
+													<button class="dropdown-toggle" data-toggle="dropdown" type="button">
+														<img
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														src='<c:url value="./assets/images/nu.png"></c:url>' />			
+													</button>
+													<ul class="dropdown-menu" style="color: black; margin-left: 900px; top: 50px;">
+														<li class="dropdown-item" style="display: flex;"><span class="glyphicon glyphicon-cog" style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black; background-color: white;" href="${pageContext.request.contextPath }/update-profile">Hồ Sơ</a>
+														</li>
+														<li class="dropdown-item" style="display: flex;"><span
+															class="glyphicon glyphicon-off"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;"
+															href="${pageContext.request.contextPath}/logout">Đăng
+																Xuất</a></li>
+													</ul>
+											</c:when>
+											<c:otherwise>
+												<a href="${pageContext.request.contextPath}/login" data-toggle="tooltip" title="Đăng nhập"> 
+													<img
+													style="width: 30px; height: 30px; border-radius: 50%; background: transparent;"
+													src="./assets/images/user1.png"
+													alt="Chua co hinh">
+												</a>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								<div class="search">
@@ -183,36 +252,94 @@
 										</li>
 									</ul>
 									<div style="width: 100%; margin: auto; padding: 15px; background: #f3f9ff; margin-top: 10px;">
-										<div style="display: flex;">
-											<h4 style="padding: 10px 10px; font-weight: bold;">BÌNH LUẬN</h4>
-											<div style="margin-left: auto; color: #6b7177;">
-												<a style="padding: 10px; color: #6b7177;"
-													href="${pageContext.request.contextPath}/login"> <i
-													class="glyphicon glyphicon-user"></i> Đăng nhập
-												</a> <a style="padding: 10px; color: #6b7177;"
-													href="${pageContext.request.contextPath}/register"> <i
-													class="glyphicon glyphicon-plus"></i> Đăng ký
-												</a>
-											</div>
-										</div>
-										<hr>
-										<div style="margin-top: 20px;">
-											<c:forEach var="u" items="${listTimeBL }">
-												<div style="display: flex; align-items: center; padding: 10px;">
-													<img
-														style="width: 50px;height:50px; border-radius: 50%; margin-right: 10px;"
-														src="./assets/images/${u.bl.taikhoan.anh}">
-													<p>
-														<span
-															style="padding-right: 5px; font-size: 15px; font-weight: bold; color: #3475c7;">${u.bl.taikhoan.hoten}:</span>
-														${u.bl.noidung}
-													</p>
-													<div style="margin-left: auto;display:flex;">
-														<p style="padding-right:10px;color:#69d0cb;">${u.time }</p>
+										<c:choose>
+											<c:when test="${TKLogin.username == null}">
+												<div style="display: flex;">
+													<h4 style="padding: 10px 10px; font-weight: bold;">BÌNH LUẬN</h4>
+													<div style="margin-left: auto; color: #6b7177;">
+														<a style="padding: 10px; color: #6b7177;"
+															href="${pageContext.request.contextPath}/login"> <i
+															class="glyphicon glyphicon-user"></i> Đăng nhập
+														</a> <a style="padding: 10px; color: #6b7177;"
+															href="${pageContext.request.contextPath}/register"> <i
+															class="glyphicon glyphicon-plus"></i> Đăng ký
+														</a>
 													</div>
 												</div>
-											</c:forEach>
-										</div>
+												<hr>
+												<div style="margin-top: 20px;">
+													<c:forEach var="u" items="${listTimeBL }">
+														<div style="display: flex; align-items: center; padding: 10px;">
+															<img
+																style="width: 40px;height:40px; border-radius: 50%; margin-right: 10px;"
+																src="./assets/images/${u.bl.taikhoan.anh}">
+															<p>
+																<span
+																	style="padding-right: 5px; font-size: 15px; font-weight: bold; color: #3475c7;">${u.bl.taikhoan.hoten}:</span>
+																${u.bl.noidung}
+															</p>
+															<div style="margin-left: auto;display:flex;">
+																<p style="padding-right:10px;color:#69d0cb;">${u.time }</p>
+															</div>
+														</div>
+													</c:forEach>
+												</div>
+											</c:when>
+											<c:when test="${TKLogin.username != null && TKLogin.vaitro == 0}">
+												<h4 style="padding: 10px 10px; font-weight: bold;">BÌNH LUẬN</h4>
+												<form:form action="binh-luan/${BaiViet.bb.idbb}" modelAttribute="binhluan" method="post" style="padding: 0 10px;">
+													<form:input path="baibao.idbb" value="${BaiViet.bb.getIdbb()}" type="hidden" />
+													<form:input path="taikhoan.username" value="${TKLogin.username}" type="hidden" />
+													<form:textarea path="noidung" rows="3" style="width: 100%; resize: none; padding: 10px" placeholder="Nhập bình luận của bạn vào đây"/>
+													<button name="${btnStatus}" type="submit" style="background: #3475c7; padding: 5px; margin-top: 10px; color: white; font-weight: bold; border: none; border-radius: 3px;">
+														Gửi bình luận
+													</button>
+												</form:form>
+												<hr>
+												<div style="margin-top: 20px;">
+													<c:forEach var="u" items="${listTimeBL }">
+														<c:choose>
+															<c:when test="${TKLogin.getUsername().compareTo(u.bl.taikhoan.username)==0 }">
+																<div style="display: flex; align-items: center; padding: 10px;">
+																	<img
+																		style="width: 40px;height:40px; border-radius: 50%; margin-right: 10px;"
+																		src="./assets/images/${u.bl.taikhoan.anh}">
+																	<p>
+																		<span
+																			style="padding-right: 5px; font-size: 15px; font-weight: bold; color: #3475c7;">${u.bl.taikhoan.hoten}:</span>
+																		${u.bl.noidung}
+																	</p>
+																	<div style="margin-left: auto;display:flex;">
+																		<p style="padding-right:10px;color:#69d0cb;">${u.time }</p>
+																		<a style="color:#3475c7; padding: 0 5px" href="chinh-sua-binh-luan/${u.bl.idbl }/${BaiViet.bb.idbb}" title="Chỉnh sửa bình luận"> 
+																			<i style="font-size: 15px" class="glyphicon glyphicon-pencil"></i>
+																		</a>
+																		<a style="color:#d6090a; padding: 0 5px" href="xoa-binh-luan/${u.bl.idbl }/${BaiViet.bb.idbb}" title="Xóa bình luận"> 
+																			<i style="font-size: 15px" class="glyphicon glyphicon-trash"></i>
+																		</a>
+																	</div>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div style="display: flex; align-items: center; padding: 10px;">
+																	<img
+																		style="width: 40px;height:40px; border-radius: 50%; margin-right: 10px;"
+																		src="./assets/images/${u.bl.taikhoan.anh}">
+																	<p>
+																		<span style="padding-right: 5px; font-size: 15px; font-weight: bold; color: #3475c7;">${u.bl.taikhoan.hoten}:</span>
+																		${u.bl.noidung}
+																	</p>
+																	<div style="margin-left: auto;display:flex;">
+																		<p style="padding-right:10px;color:#69d0cb;">${u.time}</p>
+																	</div>
+																</div>
+															</c:otherwise>
+														</c:choose>
+														
+													</c:forEach>
+												</div>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 
