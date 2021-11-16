@@ -291,7 +291,7 @@
 													<form:input path="baibao.idbb" value="${BaiViet.bb.getIdbb()}" type="hidden" />
 													<form:input path="taikhoan.username" value="${TKLogin.username}" type="hidden" />
 													<form:textarea path="noidung" rows="3" style="width: 100%; resize: none; padding: 10px" placeholder="Nhập bình luận của bạn vào đây"/>
-													<button name="${btnStatus}" type="submit" style="background: #3475c7; padding: 5px; margin-top: 10px; color: white; font-weight: bold; border: none; border-radius: 3px;">
+													<button type="submit" style="background: #3475c7; padding: 5px; margin-top: 10px; color: white; font-weight: bold; border: none; border-radius: 3px;">
 														Gửi bình luận
 													</button>
 												</form:form>
@@ -311,9 +311,9 @@
 																	</p>
 																	<div style="margin-left: auto;display:flex;">
 																		<p style="padding-right:10px;color:#69d0cb;">${u.time }</p>
-																		<a style="color:#3475c7; padding: 0 5px" href="chinh-sua-binh-luan/${u.bl.idbl }/${BaiViet.bb.idbb}" title="Chỉnh sửa bình luận"> 
+																		<%-- <a style="color:#3475c7; padding: 0 5px" href="chinh-sua-binh-luan/${u.bl.idbl }/${BaiViet.bb.idbb}" title="Chỉnh sửa bình luận"> 
 																			<i style="font-size: 15px" class="glyphicon glyphicon-pencil"></i>
-																		</a>
+																		</a> --%>
 																		<a style="color:#d6090a; padding: 0 5px" href="xoa-binh-luan/${u.bl.idbl }/${BaiViet.bb.idbb}" title="Xóa bình luận"> 
 																			<i style="font-size: 15px" class="glyphicon glyphicon-trash"></i>
 																		</a>

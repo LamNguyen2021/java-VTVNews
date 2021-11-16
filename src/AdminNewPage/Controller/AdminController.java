@@ -251,12 +251,12 @@ public class AdminController {
 			model.addAttribute("binhluan", new binhluan());
 		}
 		
-		model.addAttribute("btnStatus", "btnAdd");
+//		model.addAttribute("btnStatus", "btnAdd");
 
 		return "home/article";
 	}
 	
-	@RequestMapping(value = "binh-luan/{idbb}", method = RequestMethod.POST, params = "btnAdd")
+	@RequestMapping(value = "binh-luan/{idbb}", method = RequestMethod.POST)
 	public String binhLuanBB(@PathVariable("idbb") int idbb, @ModelAttribute("binhluan") binhluan binhluan) {
 		binhluan.setNgaybl(new Date());
 		Session session = factory.openSession();
@@ -294,28 +294,28 @@ public class AdminController {
 		return "redirect:/bai-viet/{idbb}";
 	}
 	
-	@RequestMapping("chinh-sua-binh-luan/{idbl}/{idbb}")
-	public String chinhSuaBinhLuan(@PathVariable("idbl") int idbl, @PathVariable("idbb") int idbb, @ModelAttribute("binhluan") binhluan binhluan, ModelMap model) {
-		System.out.println("Vao ham chinh sua binh luan: " + idbl);
-		Session session = factory.getCurrentSession();
-		String hql = "FROM binhluan WHERE idbl = " + idbl;
-		Query query = session.createQuery(hql);
-		binhluan binhluanchinhsua = (binhluan) query.list().get(0);
-		
-		model.addAttribute("binhluan", binhluanchinhsua);
-		model.addAttribute("btnStatus", "btnEdit");
-		
-		
-//		System.out.println("=====Binh luan can chinh sua: =======");
-//		System.out.println(binhluanchinhsua.getIdbl());
-//		System.out.println(binhluanchinhsua.getNoidung());
-//		System.out.println(binhluanchinhsua.getBaibao().getIdbb());
-//		System.out.println(binhluanchinhsua.getNgaybl());
-//		System.out.println(binhluanchinhsua.getTaikhoan().getUsername());
-		
-		
-		return "redirect:/bai-viet/{idbb}";
-	}
+//	@RequestMapping("chinh-sua-binh-luan/{idbl}/{idbb}")
+//	public String chinhSuaBinhLuan(@PathVariable("idbl") int idbl, @PathVariable("idbb") int idbb, @ModelAttribute("binhluan") binhluan binhluan, ModelMap model) {
+//		System.out.println("Vao ham chinh sua binh luan: " + idbl);
+//		Session session = factory.getCurrentSession();
+//		String hql = "FROM binhluan WHERE idbl = " + idbl;
+//		Query query = session.createQuery(hql);
+//		binhluan binhluanchinhsua = (binhluan) query.list().get(0);
+//		
+//		model.addAttribute("binhluan", binhluanchinhsua);
+//		model.addAttribute("btnStatus", "btnEdit");
+//		
+//		
+////		System.out.println("=====Binh luan can chinh sua: =======");
+////		System.out.println(binhluanchinhsua.getIdbl());
+////		System.out.println(binhluanchinhsua.getNoidung());
+////		System.out.println(binhluanchinhsua.getBaibao().getIdbb());
+////		System.out.println(binhluanchinhsua.getNgaybl());
+////		System.out.println(binhluanchinhsua.getTaikhoan().getUsername());
+//		
+//		
+//		return "redirect:/bai-viet/{idbb}";
+//	}
 }
 
 
