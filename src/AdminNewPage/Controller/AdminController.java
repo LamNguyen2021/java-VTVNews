@@ -316,6 +316,16 @@ public class AdminController {
 //		
 //		return "redirect:/bai-viet/{idbb}";
 //	}
+	
+	
+	//============= ADMIN =============//
+	
+	@RequestMapping("admin")
+	public String admin() {
+		return "admin/themBaiBao";
+	}
+	
+	
 }
 
 

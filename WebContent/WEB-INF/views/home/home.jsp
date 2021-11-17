@@ -124,6 +124,86 @@
 																Xuất</a></li>
 													</ul>
 											</c:when>
+											<c:when test="${TKLogin.getAnh()!=null && TKLogin.getVaitro()==1}">
+												<h4 style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+													${TKLogin.getHoten()}
+												</h4>
+												<img class="dropdown-toggle" data-toggle="dropdown"
+													style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+													src="assets/images/${TKLogin.getAnh()}" />
+												<ul class="dropdown-menu" style="color: black; margin-left: 900px; top: 50px;">
+													<li style="display: flex;">
+														<span class="glyphicon glyphicon-cog" style="color: #d1d3e2; background-color: white;"></span>
+														<a style="color: black; background-color: white;" href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a>
+													</li>
+													<li style="display: flex;">
+														<span class="glyphicon glyphicon-user" style="color: #d1d3e2; background-color: white;"></span>
+														<a style="color: black;" href="${pageContext.request.contextPath}/admin">
+															Đăng Nhập Admin
+														</a>
+													</li>
+													<li style="display: flex;">
+														<span class="glyphicon glyphicon-off" style="color: #d1d3e2; background-color: white;"></span>
+														<a style="color: black;" href="${pageContext.request.contextPath}/logout">Đăng Xuất</a>
+													</li>
+												</ul>
+											</c:when>
+											<c:when test="${TKLogin.getAnh()==null && TKLogin.getVaiTro()==1 && TKLogin.getGioitinh().equals('Nam')}">
+													<h4
+														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+														${TKLogin.getHoten()}</h4>
+													<img class="dropdown-toggle" data-toggle="dropdown"
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														src='<c:url value="./assets/images/nam.png"></c:url>' />
+													<ul class="dropdown-menu"
+														style="color: black; margin-left: 900px; top: 50px;">
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-cog"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black; background-color: white;"
+															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
+														<li style="display: flex;">
+															<span class="glyphicon glyphicon-user" style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;" href="${pageContext.request.contextPath}/admin">
+																Đăng Nhập Admin
+															</a>
+														</li>
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-off"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;"
+															href="${pageContext.request.contextPath}/logout">Đăng
+																Xuất</a></li>
+													</ul>
+											</c:when>
+											<c:when test="${TKLogin.getAnh()==null && TKLogin.getVaiTro()==1 && TKLogin.getGioitinh().equals('Nữ')}">
+													<h4
+														style="margin: 0px 5px; font-size: 17px; padding-top: 10px; color: white;">Xin chào, 
+														${TKLogin.getHoten()}</h4>
+													<img class="dropdown-toggle" data-toggle="dropdown"
+														style="width: 30px; height: 30px; border-radius: 50%; background: transparent; margin-right: 14px; margin-left: 5px;"
+														src='<c:url value="./assets/images/nam.png"></c:url>' />
+													<ul class="dropdown-menu"
+														style="color: black; margin-left: 900px; top: 50px;">
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-cog"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black; background-color: white;"
+															href="${pageContext.request.contextPath }/update-profile"> Hồ Sơ</a></li>
+														<li style="display: flex;">
+															<span class="glyphicon glyphicon-user" style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;" href="${pageContext.request.contextPath}/admin">
+																Đăng Nhập Admin
+															</a>
+														</li>
+														<li style="display: flex;"><span
+															class="glyphicon glyphicon-off"
+															style="color: #d1d3e2; background-color: white;"></span>
+															<a style="color: black;"
+															href="${pageContext.request.contextPath}/logout">Đăng
+																Xuất</a></li>
+													</ul>
+											</c:when>
 											<c:otherwise>
 												<a href="${pageContext.request.contextPath}/login" data-toggle="tooltip" title="Đăng nhập"> 
 													<img
