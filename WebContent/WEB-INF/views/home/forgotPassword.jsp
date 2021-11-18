@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LoginForm.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/responsive.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link id="changeable-colors" rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/colors/orange.css" />
 	<script src="${pageContext.request.contextPath}/assets/js/modernizer.js"></script>
 	<base href="${pageContext.servletContext.contextPath }/">
@@ -30,36 +31,17 @@
 			<div>
 				<button  class="btn btn-primary btn-block" type="submit">Gửi</button>
 			</div>
-			<div>
+			<%-- <div>
 				<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size:18px;"> 
 				<i class="glyphicon glyphicon-backward"></i> Trở về</a>
-			</div>
+			</div> --%>
+			<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size: 14px; margin: 10px; color: #000;">
+				<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
+			</a>
 		</form:form>
-
-
-		<%-- ${message }
-		<form action="send" method="post">
-			<p>
-				<input name="from" placeholder="From">
-			</p>
-			<p>
-				<input name="to" placeholder="To">
-			</p>
-			<p>
-				<input name="subject" placeholder="Subject">
-			</p>
-			<p>
-				<textarea rows="3" cols="30" name="body" placeholder="Body"></textarea>
-			</p>
-			<button>Send</button>
-		</form> --%>
-
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<!-- <script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-	<!-- <script src="./assets/js/all.js"></script> -->
 	<script src="./assets/js/bootstrap.min.js"></script>
 	<script src="./assets/js/LoginForm.js"></script>
 

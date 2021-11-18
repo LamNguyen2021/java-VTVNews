@@ -56,40 +56,24 @@
 		<span>Xin chào, Lam</span>
 	</div>
 	<div id="logreg-form"
-		style="width: 1000px; margin: auto; margin-top: 50px; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-		<form style="width:80%; margin:auto;">
+		style="width: 600px; margin: auto; margin-top: 50px; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
+		<form style="width:100%; margin:auto;">
 			<div>
 				<p style="text-align: center; color: #b70002; font-family: 'Dancing Script', cursive; font-weight: bold; letter-spacing: 10; font-size: 40px; padding: 10px;">
-					THÊM BÀI BÁO
+					THÊM DANH MỤC
 				</p>
 			</div>
 			<div style="padding: 10px;">
-				<h4 style="color: #b70002; font-weight: bold;">Danh mục bài báo</h4>
-				<select style="padding: 5px; text-transform: uppercase; border-radius: 4px;">
-					<option>Thời Sự</option>
-					<option>Thế Giới</option>
-					<option>Công nghệ</option>
-				</select>
+				<h4 style="color: #b70002; font-weight: bold;">Tên danh mục</h4>
+				<input type="text" class="form-control" placeholder="Nhập tên danh mục">
 			</div>
 			<div style="padding: 10px;">
-				<h4 style="color: #b70002; font-weight: bold;">Tiêu đề bài báo</h4>
-				<input type="text" class="form-control" placeholder="Nhập tiêu đề bài báo">
+				<h4 style="color: #b70002; font-weight: bold;">Mã danh mục</h4>
+				<input type="text" class="form-control" placeholder="Nhập mã danh mục">
 			</div>
-			<div style="padding: 10px;">
-				<h4 style="color: #b70002; font-weight: bold;">Nội dung tóm tắt</h4>
-				<textarea class="form-control" rows="5" style="resize: none" placeholder="Nhập khoảng 100 - 200 từ tóm tắt nội dung bài báo"></textarea>
-			</div>	
-			<div style="padding: 10px;">
-				<h4 style="color: #b70002; font-weight: bold;">Hình ảnh</h4>
-				<input class="form-control custom-file-input" type="file" name="hinh1"  style="height: 44px; padding: 0;"/>
-			</div>	
-			<div style="padding: 10px;">
-				<h4 style="color: #b70002; font-weight: bold;">Nội dung</h4>
-				<textarea name="ckeditorNoiDung" class="form-control" rows="5" id="comment"></textarea>
-			</div>
-			<div style="margin: 20px auto; width: 20%">
+			<div style="margin: 20px auto; width: 25%">
 				<button class="btn  btn-block" type="submit" style="padding: 5px; font-size: 20px; background-color: #b70002; color: white;">
-					 Thêm bài báo
+					 Thêm
 				</button>
 			</div>
 			<a href="#" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #000;">
@@ -100,10 +84,7 @@
 		<br>
 
 	</div>
-	<script>
-		initSample();
-		initSample1();
-	</script>
+	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	<script src="./assets/js/bootstrap.min.js"></script>
 	<script src="./assets/js/all.js"></script>
@@ -118,10 +99,6 @@
 			$('#signin').css('display', 'none');
 			$('#forgotPass').css('display', 'block');
 		})
-	</script>
-	<script>
-		var ckeditor = CKEDITOR.replace('ckeditorNoiDung');
-		CKFinder.setupCKEditor(ckeditor, '${pageContext.request.contextPath}/assets/ckfinder/');
 	</script>
 </body>
 </html>

@@ -322,7 +322,7 @@ public class AdminController {
 	
 	@RequestMapping("admin")
 	public String admin() {
-		return "admin/themBaiBao";
+		return "admin/themDanhMuc";
 	}
 	
 	

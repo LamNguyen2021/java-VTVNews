@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LoginForm.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/responsive.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link id="changeable-colors" rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/colors/orange.css" />
 	<script src="${pageContext.request.contextPath}/assets/js/modernizer.js"></script>
 	<base href="${pageContext.servletContext.contextPath }/">
@@ -84,7 +85,7 @@
 			
 			<span>Chọn ảnh đại diện:</span>
 			<div style="margin-bottom: 10px; border:none; background:#f3f3f3;"  >								
-				<input type="file" name="anh" class="custom-file-input" style="margin-bottom: 20px;padding: 10px 23px;"/>									
+				<input type="file" name="anh" class="custom-file-input form-control" style="margin-bottom: 20px; height: 44px; padding: 0;"/>									
 			</div>
 			
 			<div style="margin-bottom: 10px;">
@@ -93,9 +94,9 @@
 				</button>
 			</div>
 			
-			<a href="${pageContext.request.contextPath}/login" id="cancel_signup" style="font-size:18px;"> <i
-				class="glyphicon glyphicon-backward"></i> Trở về</a>
-
+			<a href="${pageContext.request.contextPath}/login" id="cancel_signup" style="font-size: 14px; margin: 10px; color: #000;">
+				<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
+			</a>
 		</form:form>
 		<br>
 	</div>
