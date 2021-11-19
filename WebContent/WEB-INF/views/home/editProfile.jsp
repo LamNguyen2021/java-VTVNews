@@ -13,6 +13,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Display|Courgette|Dancing+Script|Lobster&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LoginForm.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/responsive.css">
@@ -75,8 +76,8 @@
 					Cập nhật
 				</button>
 			</div>
-			<a href="${pageContext.request.contextPath}/home" id="cancel_signup" style="font-size: 18px;"> <i
-				class="glyphicon glyphicon-backward"></i> Trở về
+			<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size: 14px; margin: 10px; color: #000;">
+				<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
 			</a>
 		</form:form>
 		<br>

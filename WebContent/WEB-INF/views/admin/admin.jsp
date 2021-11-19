@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +42,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item" style="padding: 5px 0">
-				<a class="nav-link" href="#">
+				<a class="nav-link" href="${pageContext.request.contextPath }/admin">
 					<i class="fa fa-user" style="font-size: 16px"></i>
 					<span style="font-size: 16px">Tài khoản</span>
 				</a>
@@ -72,21 +74,13 @@
 								Thêm danh muc
 							</button>
 						</a>
-						<div style="display: flex; border-bottom: 1px solid red;">
-							<a class="collapse-item" href="#" 
-								style="text-transform: uppercase;">Thời Sự
-							</a>
-						</div>
-						<div style="display: flex; border-bottom: 1px solid red;">
-							<a class="collapse-item" href="#" 
-								style="text-transform: uppercase;">Thế Giới
-							</a>
-						</div>
-						<div style="display: flex; border-bottom: 1px solid red;">
-							<a class="collapse-item" href="#" 
-								style="text-transform: uppercase;">Công nghệ
-							</a>
-						</div>
+						<c:forEach var="u" items="${DM }">
+							<div style="display: flex; border-bottom: 1px solid red;">
+								<a class="collapse-item" href="${pageContext.request.contextPath }/admin/danhmuc/${u.madanhmuc}" 
+									style="text-transform: uppercase;">${u.tendanhmuc }
+								</a>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</li>
@@ -96,13 +90,13 @@
 
 			<!-- Sidebar Toggler (Sidebar) -->
 			<li style="margin: 10px;">
-				<a href="#" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #fff;">
+				<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #fff;">
 					<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
 				</a>
 			</li>
-			<div class="text-center d-none d-md-inline" style="padding-top: 20px;">
+			<!-- <div class="text-center d-none d-md-inline" style="padding-top: 20px;">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+			</div> -->
 
 		</ul>
 	</div>
@@ -130,13 +124,13 @@
 					<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào, Lam</span> 
-							<img style="width: 40px; height: 40px;" class="img-profile rounded-circle" src="./assets/images/user1.png">
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào, ${TKLogin.hoten }</span> 
+							<img style="width: 40px; height: 40px;" class="img-profile rounded-circle" src="./assets/images/${TKLogin.anh }">
 						</a> 
 						
 						<!-- Dropdown - User Information -->
 						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="#">
+							<a class="dropdown-item" href="${pageContext.request.contextPath }/update-profile">
 								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Hồ sơ
 							</a>
 							<div class="dropdown-divider"></div>
@@ -158,7 +152,7 @@
 				<div class="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 class="h3 mb-0 text-gray-800">DANH SÁCH TÀI KHOẢN</h1>
 					<form class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="background-color:#b70002;">
-						<a href="#" style="color: white; text-decoration: none; font-size: 16px">
+						<a href="${pageContext.request.contextPath }/register" style="color: white; text-decoration: none; font-size: 16px">
 							Thêm tài khoản 
 						</a>
 					</form>
@@ -174,7 +168,7 @@
 									<div class="col-sm-12">
 										<table class="table table-bordered dataTable no-footer"
 											id="dataTable" width="100%" cellspacing="0" role="grid"
-											aria-describedby="dataTable_info" style="width: 100%;">
+											aria-describedby="dataTable_info" style="width: 100%; color: black;">
 											<thead>
 												<tr role="row">
 													<th>Ảnh đại diện</th>
@@ -188,22 +182,38 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>
-														<img src="./assets/images/211113151018-asta.jpg" style="width: 50px; heigth: 50px !important;">
-													</td>
-													<td>Nguyen Ngoc Lam</td>
-													<td>9.4ngoclam@gmail.com</td>
-													<td>123</td>
-													<td>0932768810</td>
-													<td>Nữ</td>
-													<td>Admin</td>
-													<td>
-														<button class="btn btn-danger btn-xs" data-title="delete" data-toggle="modal" data-target="#delete">
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
-													</td>
-												</tr>
+												<c:forEach var="u" items="${taikhoan }">
+													<tr>
+														<td>
+															<img src="./assets/images/${u.anh}"
+															style="width: 50px; heigth: 70px !important;">
+														</td>
+														<td>${u.hoten}</td>
+														<td>${u.username}</td>
+														<td>${u.password}</td>
+														<td>${u.sdt}</td>
+														<td>${u.gioitinh}</td>
+														<td>
+															<c:choose>
+																<c:when test="${u.vaitro == 0}">
+																	<select name="vaitro">
+																		<option selected="selected" label="Member">
+																		<option label="Admin">
+																	</select>
+																	<a href="setAdmin/${u.username}">Update</a>
+																</c:when>
+																<c:otherwise>
+																	<p>Admin</p>
+																</c:otherwise>
+															</c:choose>
+														</td>
+														<td>
+															<button class="btn btn-danger btn-xs" data-title="Delete">
+																<span class="glyphicon glyphicon-trash"></span>
+															</button>
+														</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>

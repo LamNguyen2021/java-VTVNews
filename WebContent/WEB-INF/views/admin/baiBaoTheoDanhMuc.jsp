@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Danh sách bài viết</title>
-	<link rel="shortcut icon" href="./assets/images/iconmini.png" type="image/png">
+	<link rel="shortcut icon" href="d./assets/images/iconmini.png" type="image/png">
 	<link href="${pageContext.request.contextPath}/assets/adminPage/css/styleAdmin.css" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
@@ -42,17 +42,17 @@
 					<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào, Lam</span> 
-							<img style="width: 40px; height: 40px;" class="img-profile rounded-circle" src="./assets/images/user1.png">
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào, ${TKLogin.hoten }</span> 
+							<img style="width: 40px; height: 40px;" class="img-profile rounded-circle" src="./assets/images/${TKLogin.anh }">
 						</a> 
 						
 						<!-- Dropdown - User Information -->
 						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="#">
+							<a class="dropdown-item" href="${pageContext.request.contextPath }/update-profile">
 								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Hồ sơ
 							</a>
 							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item">
+							<a href="${pageContext.request.contextPath}/logout" class="dropdown-item">
 								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 								Đăng xuất
 							</a>
@@ -64,7 +64,7 @@
 
 			<div class="container-fluid">
 				<div>
-					<a href="#" id="cancel_signup" style="font-size: 16px;">
+					<a href="${pageContext.request.contextPath }/admin" id="cancel_signup" style="font-size: 16px;">
 						<i class="fa fa-arrow-circle-left"></i> Trở về
 					</a>
 				</div>
@@ -91,13 +91,8 @@
 												<tr role="row">
 													<th>Tên bài viết</th>
 													<th>Tóm tắt</th>
-
-													<!-- 
-													<th>Nội dung 1</th>
-													<th>Nội dung 2</th>
-													 -->
-													<th>Hình ảnh 1</th>
-													<th>Hình ảnh 2</th>
+													<th>Hình ảnh</th>
+													<th>Nội dung</th>
 													<th>Ngày đăng</th>
 													<th>Người đăng</th>
 													<th>Sửa</th>
@@ -109,7 +104,13 @@
 													<td>Australia đóng cửa di sản thế giới Uluru</td>
 													<td>Với mục tiêu gìn giữ môi trường và bảo tồn văn hóa, Chính phủ Australia đã quyết định đóng cửa vĩnh viễn núi thiêng Uluru, di sản thế giới đã được UNESCO công nhận.</td>
 													<td><img style="width: 150px; height: 100px;" src="${pageContext.servletContext.contextPath }/assets/images/images.jpg"></td>
-													<td><img style="width: 150px; height: 100px;" src="${pageContext.servletContext.contextPath }/assets/images/images.jpg"></td>
+													<td>Bộ Chính trị, Ban Bí thư nhận thấy Ban cán sự đảng Bộ Y tế nhiệm kỳ 2016 - 2021 đã 
+														vi phạm các nguyên tắc hoạt động của Đảng, Quy chế làm việc của Ban cán sự đảng; buông lỏng lãnh đạo,
+														 chỉ đạo, để Bộ Y tế, Cục Quản lý dược, một số đơn vị, cơ sở khám, chữa bệnh trực thuộc và nhiều 
+														 cá nhân vi phạm quy định của Đảng, pháp luật của Nhà nước.Các vi phạm xảy ra trong công tác xây dựng, 
+														 ban hành thể chế, chính sách; trong cấp phép nhập khẩu thuốc, mua sắm thuốc, trang thiết bị y tế, vật tư 
+														 tiêu hao và thực hiện liên doanh, liên kết trang thiết bị y tế; để nhiều tổ chức đảng, đảng viên 
+														 vi phạm kỷ luật của Đảng, pháp luật của Nhà nước, một số cán bộ, đảng viên đã bị xử lý hình sự.</td>
 													<td>17/11/2021</td>
 													<td>Admin Ngan</td>
 													<td>

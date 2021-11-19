@@ -321,11 +321,79 @@ public class AdminController {
 	//============= ADMIN =============//
 	
 	@RequestMapping("admin")
-	public String admin() {
-		return "admin/themDanhMuc";
+	public String admin(HttpServletRequest request, ModelMap model) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getHoten());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(tk.getPassword());
+			tk.setVaitro(tk.getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
+		Session session1 = factory.getCurrentSession();
+		String hqlTaiKhoan = "FROM taikhoan";
+		Query queryTaiKhoan = session1.createQuery(hqlTaiKhoan);
+		List<taikhoan> listTaiKhoan = queryTaiKhoan.list();
+		model.addAttribute("taikhoan", listTaiKhoan);
+		
+		String hqlDanhMuc = "FROM danhmuc";
+		Query queryDanhMuc = session1.createQuery(hqlDanhMuc);
+		List<danhmuc> listDanhMuc = queryDanhMuc.list();
+		model.addAttribute("DM", listDanhMuc);
+		
+		return "admin/admin";
 	}
 	
+	@RequestMapping("setAdmin/{username}")
+	public String setAdmin(@PathVariable("username") String username) {
+		username = username + ".com";
+
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		String hqlTaiKhoan = "FROM taikhoan WHERE username='" + username + "'";
+		Query queryTaiKhoan = session.createQuery(hqlTaiKhoan);
+		taikhoan tk = (taikhoan) queryTaiKhoan.list().get(0);
+		
+		if(tk.getVaitro() == 0) {
+			tk.setVaitro(1);
+		}
+		
+		try {
+			session.update(tk);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("Doi vai tro that bai");
+		} finally {
+			session.close();
+		}
+		return "redirect:/admin";
+	}
 	
+	@RequestMapping(value = "admin/danhmuc/{madanhmuc}", method = RequestMethod.GET)
+	public String dsBaiVietTheoDM(HttpServletRequest request, ModelMap model, @PathVariable("madanhmuc") String maDM) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getHoten());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(tk.getPassword());
+			tk.setVaitro(tk.getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		return "admin/baiBaoTheoDanhMuc";
+	}
 }
 
 
