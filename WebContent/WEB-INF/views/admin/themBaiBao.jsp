@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,12 +53,12 @@
 </head>
 <body>
 	<div style="margin-left: 260px;">
-		<img style="width: 60px; height: 60px; border-radius: 50%;" class="rounded-circle" src="./assets/images/user1.png">
-		<span>Xin chào, Lam</span>
+		<img style="width: 60px; height: 60px; border-radius: 50%;" class="rounded-circle" src="./assets/images/${TKLogin.anh }">
+		<span>Xin chào, ${TKLogin.hoten }</span>
 	</div>
 	<div id="logreg-form"
 		style="width: 1000px; margin: auto; margin-top: 50px; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-		<form style="width:80%; margin:auto;">
+		<form:form modelAttribute="baibao" style="width:95%; margin:auto;">
 			<div>
 				<p style="text-align: center; color: #b70002; font-family: 'Dancing Script', cursive; font-weight: bold; letter-spacing: 10; font-size: 40px; padding: 10px;">
 					THÊM BÀI BÁO
@@ -65,11 +66,11 @@
 			</div>
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Danh mục bài báo</h4>
-				<select style="padding: 5px; text-transform: uppercase; border-radius: 4px;">
-					<option>Thời Sự</option>
-					<option>Thế Giới</option>
-					<option>Công nghệ</option>
-				</select>
+				<form:select path="danhmuc.madanhmuc" 
+					items="${DanhMuc }" itemValue="madanhmuc" 
+					itemLabel="tendanhmuc" style="padding: 5px; 
+					text-transform: uppercase; border-radius: 4px;">
+				</form:select>
 			</div>
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Tiêu đề bài báo</h4>
@@ -95,7 +96,7 @@
 			<a href="#" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #000;">
 				<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
 			</a>
-		</form>
+		</form:form>
 
 		<br>
 

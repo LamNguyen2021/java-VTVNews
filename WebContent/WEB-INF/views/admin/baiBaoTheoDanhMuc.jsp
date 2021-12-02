@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,10 +71,10 @@
 				</div>
 				<!-- Page Heading -->
 				<div class="d-sm-flex align-items-center justify-content-between mb-4">
-					<h1 class="h3 mb-0 text-gray-800" style="text-transform: uppercase;">
-						DANH SÁCH BÀI VIẾT THUỘC DANH MỤC Thời Sự</h1>
-					<a href="#" class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="color: white; border: none; background-color: #e65656; border-color: #e65656;">
-						<i class="text-white-50"></i>Thêm bài viết
+					<h1 class="h3 mb-0" style="text-transform: uppercase; color: #000">
+						DANH SÁCH BÀI VIẾT THUỘC DANH MỤC ${TenDanhMuc }</h1>
+					<a href="${pageContext.request.contextPath }/admin/themBaiBao" class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="color: white; background-color: #b70002; font-size: 16px; text-decoration: none;">
+						Thêm bài viết
 					</a>
 				</div>
 				<!-- DataTales Example -->
@@ -86,13 +87,13 @@
 									<div class="col-sm-12">
 										<table class="table table-bordered dataTable no-footer"
 											id="dataTable" width="100%" cellspacing="0" role="grid"
-											aria-describedby="dataTable_info" style="width: 100%;">
+											aria-describedby="dataTable_info" style="width: 100%; color: #000">
 											<thead>
 												<tr role="row">
 													<th>Tên bài viết</th>
 													<th>Tóm tắt</th>
 													<th>Hình ảnh</th>
-													<th>Nội dung</th>
+													<!-- <th>Nội dung</th> -->
 													<th>Ngày đăng</th>
 													<th>Người đăng</th>
 													<th>Sửa</th>
@@ -100,34 +101,50 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr style="height: 200px;">
-													<td>Australia đóng cửa di sản thế giới Uluru</td>
-													<td>Với mục tiêu gìn giữ môi trường và bảo tồn văn hóa, Chính phủ Australia đã quyết định đóng cửa vĩnh viễn núi thiêng Uluru, di sản thế giới đã được UNESCO công nhận.</td>
-													<td><img style="width: 150px; height: 100px;" src="${pageContext.servletContext.contextPath }/assets/images/images.jpg"></td>
-													<td>Bộ Chính trị, Ban Bí thư nhận thấy Ban cán sự đảng Bộ Y tế nhiệm kỳ 2016 - 2021 đã 
-														vi phạm các nguyên tắc hoạt động của Đảng, Quy chế làm việc của Ban cán sự đảng; buông lỏng lãnh đạo,
-														 chỉ đạo, để Bộ Y tế, Cục Quản lý dược, một số đơn vị, cơ sở khám, chữa bệnh trực thuộc và nhiều 
-														 cá nhân vi phạm quy định của Đảng, pháp luật của Nhà nước.Các vi phạm xảy ra trong công tác xây dựng, 
-														 ban hành thể chế, chính sách; trong cấp phép nhập khẩu thuốc, mua sắm thuốc, trang thiết bị y tế, vật tư 
-														 tiêu hao và thực hiện liên doanh, liên kết trang thiết bị y tế; để nhiều tổ chức đảng, đảng viên 
-														 vi phạm kỷ luật của Đảng, pháp luật của Nhà nước, một số cán bộ, đảng viên đã bị xử lý hình sự.</td>
-													<td>17/11/2021</td>
-													<td>Admin Ngan</td>
-													<td>
-														<a href="#">
-															<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
-																<span class="glyphicon glyphicon-pencil"></span>
-															</button>
-														</a>
-													</td>	
-													<td>
-														<a href="#">
-															<button class="btn btn-danger btn-xs" data-title="Delete">
-																<span class="glyphicon glyphicon-trash"></span>
-															</button>
-														</a>
-													</td>
-												</tr>
+												<c:forEach var="u" items="${DanhSachBaiBao }">
+													<tr style="height: 200px;">
+														<td>${u.tieude }</td>
+														<td>${u.tomtat }</td>
+														<td><img style="width: 150px; height: 100px;" src="${pageContext.servletContext.contextPath }/assets/images/${u.hinhanh1}"></td>
+														<%-- <td>${u.noidung1 }</td> --%>
+														<td>${u.ngaydang }</td>
+														<td>${u.taikhoan.username }</td>
+														<td>
+															<c:choose>
+																<c:when test="${u.getTaikhoan().getUsername().equals(TKLogin.getUsername())}">
+																	<a href="${pageContext.request.contextPath }/admin/suaBaiBao/${u.idbb}">
+																		<button class="btn btn-primary btn-xs">
+																			<span class="glyphicon glyphicon-pencil"></span>
+																		</button>
+																	</a>
+																</c:when>
+																<c:otherwise>
+																	<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" style="opacity: 0.3">
+																		<span class="glyphicon glyphicon-pencil"></span>
+																	</button>
+																</c:otherwise>
+															</c:choose>
+															
+														</td>	
+														<td>
+															<c:choose>
+																<c:when test="${u.getTaikhoan().getUsername().equals(TKLogin.getUsername())}">
+																	<a href="#">
+																		<button class="btn btn-danger btn-xs">
+																			<span class="glyphicon glyphicon-trash"></span>
+																		</button>
+																	</a>
+																</c:when>
+																<c:otherwise>
+																	<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" style="opacity: 0.3">
+																		<span class="glyphicon glyphicon-trash"></span>
+																	</button>
+																</c:otherwise>
+															</c:choose>
+															
+														</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
@@ -171,7 +188,7 @@
 		</div>
 	</div>
 	
-	<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+	<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

@@ -327,14 +327,17 @@ public class AdminController {
 		if(admin != null && admin.getVaitro()==1) {
 			taikhoan tk = new taikhoan();
 			tk.setHoten(admin.getHoten());
-			tk.setUsername(admin.getHoten());
+			tk.setUsername(admin.getUsername());
 			tk.setAnh(admin.getAnh());
 			tk.setSdt(admin.getSdt());
 			tk.setGioitinh(admin.getGioitinh());
-			tk.setPassword(tk.getPassword());
-			tk.setVaitro(tk.getVaitro());
+			tk.setPassword(admin.getPassword());
+			tk.setVaitro(admin.getVaitro());
+
 			model.addAttribute("TKLogin", tk);
 		}
+		
+		
 		
 		Session session1 = factory.getCurrentSession();
 		String hqlTaiKhoan = "FROM taikhoan";
@@ -384,7 +387,7 @@ public class AdminController {
 		if(admin != null && admin.getVaitro()==1) {
 			taikhoan tk = new taikhoan();
 			tk.setHoten(admin.getHoten());
-			tk.setUsername(admin.getHoten());
+			tk.setUsername(admin.getUsername());
 			tk.setAnh(admin.getAnh());
 			tk.setSdt(admin.getSdt());
 			tk.setGioitinh(admin.getGioitinh());
@@ -392,7 +395,61 @@ public class AdminController {
 			tk.setVaitro(tk.getVaitro());
 			model.addAttribute("TKLogin", tk);
 		}
+		
+		Session session1 = factory.getCurrentSession();
+		String hqlTenDanhMuc = "SELECT tendanhmuc FROM danhmuc WHERE madanhmuc = '" + maDM + "'";
+		Query queryTenDanhMuc = session1.createQuery(hqlTenDanhMuc);
+		String tenDanhMuc = (String) queryTenDanhMuc.list().get(0);
+		model.addAttribute("TenDanhMuc", tenDanhMuc);
+		
+		String hqlBaiBao = "FROM baibao WHERE madanhmuc = '" + maDM + "'";
+		Query queryBaiBao = session1.createQuery(hqlBaiBao);
+		List<baibao> listBaiBao = queryBaiBao.list();
+		
+//		for (baibao baibao : listBaiBao) {
+//			String noidung = baibao.getNoidung1().substring(0, baibao.getNoidung1().length()/3);
+//			baibao.setNoidung1(noidung + "...");
+//		}
+		
+		model.addAttribute("DanhSachBaiBao", listBaiBao);
+		
 		return "admin/baiBaoTheoDanhMuc";
+	}
+	
+	@ModelAttribute("DanhMuc")
+	public List<danhmuc> getDanhMuc() {
+		Session session1 = factory.getCurrentSession();
+		String hqlDanhMuc = "FROM danhmuc";
+		Query queryDanhMuc = session1.createQuery(hqlDanhMuc);
+		List<danhmuc> listDanhMuc = queryDanhMuc.list();
+		return listDanhMuc;
+	}
+	
+	@RequestMapping(value = "admin/themBaiBao", method = RequestMethod.GET)
+	public String themBaiBao(ModelMap model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getUsername());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(tk.getPassword());
+			tk.setVaitro(tk.getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
+//		Session session1 = factory.getCurrentSession();
+//		String hqlDanhMuc = "FROM danhmuc";
+//		Query queryDanhMuc = session1.createQuery(hqlDanhMuc);
+//		List<danhmuc> listDanhMuc = queryDanhMuc.list();
+//		model.addAttribute("danhmuc", listDanhMuc);
+		
+		model.addAttribute("baibao", new baibao());
+		
+		return "admin/themBaiBao";
 	}
 }
 
