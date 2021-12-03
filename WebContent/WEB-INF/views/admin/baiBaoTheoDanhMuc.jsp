@@ -129,7 +129,7 @@
 														<td>
 															<c:choose>
 																<c:when test="${u.getTaikhoan().getUsername().equals(TKLogin.getUsername())}">
-																	<a href="#">
+																	<a href="${pageContext.request.contextPath }/admin/xoaBaiBao/${u.idbb}">
 																		<button class="btn btn-danger btn-xs">
 																			<span class="glyphicon glyphicon-trash"></span>
 																		</button>

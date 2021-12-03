@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Thêm bài báo</title>
+	<title>Sửa bài báo</title>
 	<link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Display|Courgette|Dancing+Script|Lobster&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
@@ -58,10 +58,10 @@
 	</div>
 	<div id="logreg-form"
 		style="width: 1000px; margin: auto; margin-top: 50px; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-		<form:form action="${pageContext.request.contextPath }/admin/themBaiBao" method="post" modelAttribute="baibao" enctype="multipart/form-data" style="width:95%; margin:auto;">
+		<form:form action="${pageContext.request.contextPath }/admin/suaBaiBao/${baibao.idbb }" method="post" modelAttribute="baibao" enctype="multipart/form-data" style="width:95%; margin:auto;">
 			<div>
 				<p style="text-align: center; color: #b70002; font-family: 'Dancing Script', cursive; font-weight: bold; letter-spacing: 10; font-size: 40px; padding: 10px;">
-					THÊM BÀI BÁO
+					SỬA BÀI BÁO
 				</p>
 			</div>
 			<div style="padding: 10px;">
@@ -86,7 +86,6 @@
 			</div>	
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Nội dung</h4>
-				<!-- <textarea path="noidung1" name="ckeditorNoiDung" class="form-control" rows="5" id="comment"></textarea> -->
 				<form:textarea path="noidung1" id="ckeditorNoiDung" class="form-control" rows="5"/>
 			</div>
 			<div style="margin: 20px auto; width: 20%">

@@ -1,6 +1,9 @@
 package AdminNewPage.Controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,13 +20,17 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import AdminNewPage.Bean.UploadFile;
 import AdminNewPage.Entity.baibao;
 import AdminNewPage.Entity.binhluan;
 import AdminNewPage.Entity.danhmuc;
@@ -36,6 +43,10 @@ import AdminNewPage.Entity.timeBL;
 public class AdminController {
 	@Autowired
 	SessionFactory factory;
+	
+	@Autowired
+	@Qualifier("uploadFile")
+	UploadFile baseUploadFile;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
@@ -451,6 +462,152 @@ public class AdminController {
 		
 		return "admin/themBaiBao";
 	}
+	
+	@RequestMapping(value = "admin/themBaiBao", method = RequestMethod.POST)
+	public String themBaiBao(@ModelAttribute("baibao") baibao baibao, @RequestParam("anh") MultipartFile anh, HttpServletRequest request) {
+		if(!anh.isEmpty()) {
+			try {
+				String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
+				String fileName = date + anh.getOriginalFilename(); // đặt tên file
+				String photoPath = baseUploadFile.getBasePath() + File.separator + fileName; // đặt đường dẫn hình ảnh
+				
+				anh.transferTo(new File(photoPath));
+				Thread.sleep(2500);
+				
+				baibao.setHinhanh1(fileName);
+			} catch (Exception e) {
+				System.out.println("Loi upload hinh anh");
+			}
+		} else {
+			baibao.setHinhanh1("vtvNews.png");
+		}
+		
+		Date date = new Date();
+		baibao.setNgaydang(date);
+		
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			baibao.setTaikhoan(admin);
+		}
+		
+//		System.out.println("idbb" + baibao.getIdbb());
+//		System.out.println("tieu de" + baibao.getTieude());
+//		System.out.println("tom tat" + baibao.getTomtat());
+//		System.out.println("noi dung" + baibao.getNoidung1());
+//		System.out.println("hinh anh" + baibao.getHinhanh1());
+//		System.out.println("ngay dang" + baibao.getNgaydang());
+//		System.out.println("tai khoan" + baibao.getTaikhoan().getUsername());
+//		System.out.println("danh muc" + baibao.getDanhmuc().getMadanhmuc());
+		
+		Session session1 = factory.openSession();
+		Transaction t = session1.beginTransaction();
+		
+		try {
+			session1.save(baibao);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("them bai bao that bai");
+		} finally {
+			session1.close();
+		}
+		
+		return "redirect:/admin";
+	}
+	
+	@RequestMapping(value = "admin/suaBaiBao/{idbb}", method = RequestMethod.GET)
+	public String suaBaiBao(@PathVariable("idbb") int idbb, HttpServletRequest request, ModelMap model, @ModelAttribute("baibao") baibao baibao) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getUsername());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(tk.getPassword());
+			tk.setVaitro(tk.getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
+		Session session1 = factory.getCurrentSession();
+		String hqlBaiBao = "FROM baibao WHERE idbb = " + idbb;
+		Query queryBaiBao = session1.createQuery(hqlBaiBao);
+		baibao BB = (baibao) queryBaiBao.list().get(0);
+		model.addAttribute("baibao", BB);
+		
+		return "admin/suaBaiBao";
+	}
+	
+	@RequestMapping(value = "admin/suaBaiBao/{idbb}", method = RequestMethod.POST)
+	public String suaBaiBao(@PathVariable("idbb") int idbb, @ModelAttribute("baibao") baibao baibao, @RequestParam("anh") MultipartFile anh, HttpServletRequest request) {
+		if(!anh.isEmpty()) {
+			try {
+				String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
+				String fileName = date + anh.getOriginalFilename(); // đặt tên file
+				String photoPath = baseUploadFile.getBasePath() + File.separator + fileName; // đặt đường dẫn hình ảnh
+				
+				anh.transferTo(new File(photoPath));
+				Thread.sleep(2500);
+				
+				baibao.setHinhanh1(fileName);
+			} catch (Exception e) {
+				System.out.println("Loi upload hinh anh");
+			}
+		} else {
+			baibao.setHinhanh1("vtvNews.png");
+		}
+		
+		Date date = new Date();
+		baibao.setNgaydang(date);
+		
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			baibao.setTaikhoan(admin);
+		}
+		
+		Session session1 = factory.openSession();
+		Transaction t = session1.beginTransaction();
+		
+		try {
+			session1.update(baibao);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("cap nhat bai bao that bai");
+		} finally {
+			session1.close();
+		}
+		
+		return "redirect:/admin";
+	}
+	
+	@RequestMapping("admin/xoaBaiBao/{idbb}")
+	public String xoaBaiBao(@PathVariable("idbb") int idbb) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		String hqlBaiBao = "FROM baibao WHERE idbb = " + idbb;
+		Query queryBaiBao = session.createQuery(hqlBaiBao);
+		baibao BB = (baibao) queryBaiBao.list().get(0);
+
+		try {
+			session.delete(BB);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("xoa bai bao that bai");
+		} finally {
+			session.close();
+		}
+		return "redirect:/admin";
+	}
+	
+	
+	
 }
 
 

@@ -68,7 +68,7 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Lựa chọn danh mục</h6>
-						<a style="padding: 20px 10px;" href="#">
+						<a style="padding: 20px 10px;" href="${pageContext.request.contextPath }/admin/themDanhMuc">
 							<button style="font-size: 12px;">
 								<span class="glyphicon glyphicon-plus-sign"></span> 
 								Thêm danh muc

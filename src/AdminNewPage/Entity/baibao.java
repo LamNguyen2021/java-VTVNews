@@ -134,6 +134,13 @@ public class baibao {
 	public void setBinhluan(Collection<binhluan> binhluan) {
 		this.binhluan = binhluan;
 	}
+
+	@Override
+	public String toString() {
+		return "baibao [idbb=" + idbb + ", tieude=" + tieude + ", tomtat=" + tomtat + ", noidung1=" + noidung1
+				+ ", noidung2=" + noidung2 + ", hinhanh1=" + hinhanh1 + ", hinhanh2=" + hinhanh2 + ", ngaydang="
+				+ ngaydang + ", taikhoan=" + taikhoan + ", danhmuc=" + danhmuc + "]";
+	}
 	
 	
 }
