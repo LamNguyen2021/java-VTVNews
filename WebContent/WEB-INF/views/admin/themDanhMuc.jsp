@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Thêm bài báo</title>
+	<title>Thêm danh mục</title>
 	<link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Display|Courgette|Dancing+Script|Lobster&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
@@ -20,44 +21,17 @@
 
 	<base href="${pageContext.servletContext.contextPath }/">
 	
-	<style type="text/css">
-		.custom-file-input::-webkit-file-upload-button {
-			visibility: hidden;
-		}
-		
-		.custom-file-input::before {
-			content: 'Lựa chọn tệp hình ảnh';
-			display: inline-block;
-			background: linear-gradient(top, #f9f9f9, #e3e3e3);
-			border: 1px solid #b70002;
-			background-color: #b70002;
-			border-radius: 3px;
-			padding: 10px 23px;
-			outline: none;
-			color: white;
-			white-space: nowrap;
-			-webkit-user-select: none;
-			cursor: pointer;
-		}
-		
-		.custom-file-input:hover::before {
-			border-color: black;
-		}
-		
-		.custom-file-input:active::before {
-			background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-		}
-	</style>
+	
 	
 </head>
 <body>
 	<div style="margin-left: 260px;">
-		<img style="width: 60px; height: 60px; border-radius: 50%;" class="rounded-circle" src="./assets/images/user1.png">
-		<span>Xin chào, Lam</span>
+		<img style="width: 60px; height: 60px; border-radius: 50%;" class="rounded-circle" src="./assets/images/${TKLogin.anh }">
+		<span>Xin chào, ${TKLogin.hoten }</span>
 	</div>
 	<div id="logreg-form"
 		style="width: 600px; margin: auto; margin-top: 50px; background-color: #f3f3f3; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
-		<form style="width:100%; margin:auto;">
+		<form:form action="${pageContext.request.contextPath }/admin/themDanhMuc" method="post" modelAttribute="danhmuc" style="width:100%; margin:auto;">
 			<div>
 				<p style="text-align: center; color: #b70002; font-family: 'Dancing Script', cursive; font-weight: bold; letter-spacing: 10; font-size: 40px; padding: 10px;">
 					THÊM DANH MỤC
@@ -65,21 +39,21 @@
 			</div>
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Tên danh mục</h4>
-				<input type="text" class="form-control" placeholder="Nhập tên danh mục">
+				<form:input path="tendanhmuc" type="text" class="form-control" placeholder="Nhập tên danh mục"/>
 			</div>
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Mã danh mục</h4>
-				<input type="text" class="form-control" placeholder="Nhập mã danh mục">
+				<form:input path="madanhmuc" type="text" class="form-control" placeholder="Nhập mã danh mục"/>
 			</div>
 			<div style="margin: 20px auto; width: 25%">
-				<button class="btn  btn-block" type="submit" style="padding: 5px; font-size: 20px; background-color: #b70002; color: white;">
+				<button class="btn btn-block" type="submit" style="padding: 5px; font-size: 20px; background-color: #b70002; color: white;">
 					 Thêm
 				</button>
 			</div>
-			<a href="#" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #000;">
+			<a href="${pageContext.request.contextPath }/admin" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #000;">
 				<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
 			</a>
-		</form>
+		</form:form>
 
 		<br>
 

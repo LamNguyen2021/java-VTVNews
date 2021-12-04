@@ -606,8 +606,53 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	@RequestMapping(value = "admin/themDanhMuc", method = RequestMethod.GET)
+	public String themDanhMuc(ModelMap model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getUsername());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(tk.getPassword());
+			tk.setVaitro(tk.getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
+		model.addAttribute("danhmuc", new danhmuc());
+		return "admin/themDanhMuc";
+	}
 	
+	public boolean kiemTraDanhMucTonTai(String madanhmuc) {
+		boolean trangthai = false;
+		Session session = factory.getCurrentSession();
+		String hql = "FROM danhmuc WHERE madanhmuc = '" + madanhmuc + "'";
+		Query query = session.createQuery(hql);
+		List<danhmuc> listDanhMuc = query.list();
+		if(listDanhMuc != null && listDanhMuc.size() > 0) {
+			trangthai = true;
+		}
+		return trangthai;
+	}
 	
+	@RequestMapping(value = "admin/themDanhMuc", method = RequestMethod.POST)
+	public String themDanhMuc(@ModelAttribute("danhmuc") danhmuc danhmuc) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.save(danhmuc);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("them danh muc that bai");
+		} finally {
+			session.close();
+		}
+		return "redirect:/admin";
+	}
 }
 
 

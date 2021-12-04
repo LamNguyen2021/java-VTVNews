@@ -273,10 +273,10 @@
 							<div class="col-sm-8 topNewsMain ">
 								<div style="width: 95%; margin: auto;">
 									<!-- ${TOPNEW.getIdbb()} -->
-									<a href="${pageContext.request.contextPath}/bai-viet/${TOPNEW.getIdbb()}">
+									<div>
 										<img style="width: 100%;" src="./assets/images/${TOPNEW.getHinhanh1() }" alt="${TOPNEW.getTieude() }">
 										<div class="title" style="padding: 10px;">
-											<a title="Top news">${TOPNEW.getTieude() }</a>
+											<a href="${pageContext.request.contextPath}/bai-viet/${TOPNEW.getIdbb()}">${TOPNEW.getTieude() }</a>
 										</div>
 										<div class="colorDark text-justify" style="padding: 0px 10px;">
 											<a>
@@ -284,7 +284,7 @@
 											</a>
 										</div>
 
-									</a>
+									</div>
 								</div>
 							</div>
 							<div class="col-sm-2 topNewRight">
