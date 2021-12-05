@@ -26,15 +26,11 @@
 			<div>
 				<form:input path="username" type="email" id="email" class="form-control" placeholder="Email" />
 			</div>
-			<form:errors path="username" style="color:red;padding:10px;" />
-			<p style="padding:10px; color: #1ea29b;font-size:15px;">Ấn nút Gửi và kiểm tra email của bạn</p>
+			<form:errors path="username" style="color:red; padding:10px; font-size:12px" />
+			<p style="padding:10px; color: #1ea29b;font-size:16px;">Ấn nút Gửi và kiểm tra email của bạn</p>
 			<div>
-				<button  class="btn btn-primary btn-block" type="submit">Gửi</button>
+				<button class="btn btn-primary btn-block" type="submit" style="font-size: 16px">Gửi</button>
 			</div>
-			<%-- <div>
-				<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size:18px;"> 
-				<i class="glyphicon glyphicon-backward"></i> Trở về</a>
-			</div> --%>
 			<a href="${pageContext.request.contextPath }/home" id="cancel_signup" style="font-size: 14px; margin: 10px; color: #000;">
 				<i class="fa fa-arrow-circle-left"></i> Trở về trang chủ
 			</a>

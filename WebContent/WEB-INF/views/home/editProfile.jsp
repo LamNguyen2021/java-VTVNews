@@ -20,6 +20,13 @@
 	<link id="changeable-colors" rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/colors/orange.css" />
 	<script src="${pageContext.request.contextPath}/assets/js/modernizer.js"></script>
 	<base href="${pageContext.servletContext.contextPath }/">
+	
+	<style type="text/css">
+		.custom-input {
+			width: 80%;
+			display: inline;
+		}
+	</style>
 </head>
 <body>
 	<div id="logreg-form" style="width: 1000px; margin: auto; margin-top: 50px; 
@@ -49,30 +56,34 @@
 				</div>
 				<div class="col-sm-8">
 					<div style="margin-bottom: 20px; margin-top: 50px;">
-						<form:input value="${TKLogin.hoten}" path="hoten" class="form-control" type="text" placeholder="Họ tên"/>
-						<form:errors path="hoten" style="color:red;" />
+						<span style="color: #b70002; font-weight: bold; margin-left: 5px; margin-right: 50px">Họ tên </span>
+						<form:input value="${TKLogin.hoten}" path="hoten" class="form-control custom-input" type="text" placeholder="Họ tên"/>
+						<form:errors path="hoten" style="color: red; font-size: 12px; margin-left: 104px;" />
 					</div>
 					<div style="margin-bottom: 20px;">
-						<form:input value="${TKLogin.sdt}" path="sdt" type="text" class="form-control" placeholder="Số diện thoại"/>
-						<form:errors path="sdt" style="color:red;" />
+						<span style="color: #b70002; font-weight: bold; margin-left: 5px; margin-right: 7px">Số điện thoại </span>
+						<form:input value="${TKLogin.sdt}" path="sdt" type="text" class="form-control custom-input" placeholder="Số diện thoại"/>
 					</div>
 					<div style="margin-bottom: 20px;">
-						<form:input value="${TKLogin.username}" path="username" type="email" class="form-control" placeholder="Email" readonly="true"/>
-						<form:errors path="username" style="color:red;" />
+						<span style="color: #b70002; font-weight: bold; margin-left: 5px; margin-right: 59px">Email </span>
+						<form:input value="${TKLogin.username}" path="username" type="email" class="form-control custom-input" placeholder="Email" readonly="true"/>
+						<form:errors path="username" style="color: red; font-size: 12px; margin-left: 104px;"/>
 					</div>
 					<div style="margin-bottom: 20px;">
-						<form:input value="${TKLogin.password}" path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu"/>
-						<form:errors path="password" style="color:red;" />
+						<span style="color: #b70002; font-weight: bold; margin-left: 5px; margin-right: 36px">Mật khẩu </span>
+						<form:input value="${TKLogin.password}" path="password" type="password" id="user-pass" class="form-control custom-input" placeholder="Mật khẩu"/>
+						<form:errors path="password" style="color: red; font-size: 12px; margin-left: 104px;"/>
 					</div>
-					<form:select value="${TKLogin.gioitinh}" path="gioitinh" style="margin-bottom:10px;">
+					<span style="color: #b70002; font-weight: bold; margin-left: 5px; margin-right: 39px">Giới tính</span>
+					<form:select value="${TKLogin.gioitinh}" path="gioitinh" style="margin-bottom:10px; border-radius: 4px; padding: 5px;">
 						<form:option value="Nữ">Nữ</form:option>
 						<form:option value="Nam">Nam</form:option>
 					</form:select>
 				</div>
 			</div>
-			<div style="margin-bottom: 5px; width: 20%; margin-left: 350px;">
+			<div style="margin-bottom: 5px; width: 15%; margin-left: auto; margin-right: auto">
 				<button class="btn  btn-block" type="submit"
-					style="padding: 10px; font-size: 20px; background-color: #b70002; color: white;">
+					style="padding: 10px; font-size: 16px; background-color: #b70002; color: white;">
 					Cập nhật
 				</button>
 			</div>

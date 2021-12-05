@@ -8,16 +8,29 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "taikhoan")
 public class taikhoan {
+	
+//	@NotEmpty(message = "Bạn chưa nhập email")
+//	@Email(message = "Email không đúng định dạng. VD: example@gmail.com")
 	@Id
 	private String username;
+	
+//	@NotEmpty(message = "Bạn chưa nhập mật khẩu")
 	private String password;
+	
+//	@NotEmpty(message = "Bạn chưa nhập họ tên")
+//	@Pattern(regexp = "^[a-z A-Z]{5,50}$", message = "Họ tên phải là chữ. Độ dài từ 5-50 kí tự")
 	private String hoten;
+	
 	private String sdt;
+	
 	private int vaitro;
+	
 	private String anh;
+	
 	private String gioitinh;
 	
 	@OneToMany(mappedBy = "taikhoan", fetch = FetchType.EAGER)

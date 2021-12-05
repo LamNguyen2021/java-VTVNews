@@ -25,21 +25,21 @@
 	${message }
 	<div id="logreg-forms">
 		<form:form action="${pageContext.request.contextPath }/checkLogin" modelAttribute="TaiKhoan">
-			<h1 class="h3 mb-3 font-weight-bold " style="text-align: center;">Đăng nhập</h1>
+			<h3 class="h3 mb-3 font-weight-bold " style="text-align: center;font-size: 35px;font-weight: 700;color: #b70002;margin-top: 10px;margin-bottom: 20px;">Đăng nhập</h3>
 			<div style="margin-bottom: 10px;">
 				<form:input path="username" type="email" class="form-control" placeholder="Email" />
-				<form:errors path="username" style="color: red;"/>
+				<form:errors path="username" style="color: red; font-size: 12px"/>
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
-				<form:errors path="password" style="color: red;"/>
+				<form:errors path="password" style="color: red; font-size: 12px"/>
 			</div>
 			
-			<button class="btn btn-success btn-block" type="submit" style="font-size: 15px;">
+			<button class="btn btn-success btn-block" type="submit" style="font-size: 15px; background-color: #b70002; border-color: #b70002">
 				ĐĂNG NHẬP
 			</button>
 			
-			<a id="forgot_pswd" href="${pageContext.request.contextPath }/forgot-password">Quên mật khẩu?</a>
+			<a id="forgot_pswd" href="${pageContext.request.contextPath }/forgot-password" style="color: #000">Quên mật khẩu?</a>
 			<hr>
 			
 			<!-- <p>Don't have an account!</p>  -->

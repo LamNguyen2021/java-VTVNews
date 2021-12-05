@@ -38,12 +38,14 @@
 				</p>
 			</div>
 			<div style="padding: 10px;">
-				<h4 style="color: #b70002; font-weight: bold;">Tên danh mục</h4>
-				<form:input path="tendanhmuc" type="text" class="form-control" placeholder="Nhập tên danh mục"/>
-			</div>
-			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Mã danh mục</h4>
 				<form:input path="madanhmuc" type="text" class="form-control" placeholder="Nhập mã danh mục"/>
+				<form:errors path="madanhmuc" style="color: red; font-size: 12px"></form:errors>
+			</div>
+			<div style="padding: 10px;">
+				<h4 style="color: #b70002; font-weight: bold;">Tên danh mục</h4>
+				<form:input path="tendanhmuc" type="text" class="form-control" placeholder="Nhập tên danh mục"/>
+				<form:errors path="tendanhmuc" style="color: red; font-size: 12px"></form:errors>
 			</div>
 			<div style="margin: 20px auto; width: 25%">
 				<button class="btn btn-block" type="submit" style="padding: 5px; font-size: 20px; background-color: #b70002; color: white;">

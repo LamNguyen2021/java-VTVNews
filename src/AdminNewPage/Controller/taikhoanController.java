@@ -26,12 +26,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import AdminNewPage.Bean.UploadFile;
 import AdminNewPage.Entity.taikhoan;
@@ -39,6 +41,10 @@ import AdminNewPage.Entity.taikhoan;
 @Transactional
 @Controller
 public class taikhoanController {
+	private String EMAIL_PATTERN =
+            "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+	
 	@Autowired
 	SessionFactory factory;
 	
@@ -62,24 +68,25 @@ public class taikhoanController {
 		taikhoan tk = (taikhoan) session.get(taikhoan.class, taikhoan.getUsername());
 		System.out.println("session tk: " + tk);
 		
-		
 		try {
-			if (taikhoan.getUsername().equals("")) {
+			if (taikhoan.getUsername().trim().length() == 0) {
 				errors.rejectValue("username", "taikhoan", "Bạn chưa nhập email ");
 				return "home/login";
-			} else if (taikhoan.getPassword().equals("")) {
-				errors.rejectValue("password", "taikhoan", "Bạn chưa nhập pasword");
+			} else if (taikhoan.getPassword().trim().length() == 0) {
+				errors.rejectValue("password", "taikhoan", "Bạn chưa nhập mật khẩu");
 				return "home/login";
+			} else if(!taikhoan.getUsername().matches(this.EMAIL_PATTERN)) {
+				errors.rejectValue("username", "taikhoan", "Email không đúng định dạng. VD: example@gmail.com");
+				return "home/register";
 			}
+			
 			if (taikhoan.getUsername().equals(tk.getUsername())) {
 				System.out.println("tai khoan ton tai");
 				if (taikhoan.getPassword().equals(tk.getPassword())) {
-
 					HttpSession session2 = request.getSession();
 					session2.setAttribute("users", tk);
 					return "redirect:home";
 				} else {
-
 					errors.rejectValue("password", "taikhoan", "Sai mật khẩu");
 					return "home/login";
 				}
@@ -135,23 +142,31 @@ public class taikhoanController {
 	}
 	
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String register(ModelMap model,HttpServletRequest request, @RequestParam("anh") MultipartFile anh, 
+	public String register(ModelMap model, HttpServletRequest request, @RequestParam("anh") MultipartFile anh, 
 			@ModelAttribute("taikhoan") taikhoan taikhoan, BindingResult errors) {
-		
-		if(taikhoan.getHoten().trim().length() == 0 
-				&& taikhoan.getUsername().trim().length() == 0
-				&& taikhoan.getPassword().trim().length() == 0) {
+
+		if(taikhoan.getHoten().trim().length() == 0) {
 			errors.rejectValue("hoten", "taikhoan", "Bạn chưa nhập họ tên");
+			return "home/register";
+		}
+		else if(taikhoan.getUsername().trim().length() == 0) {
 			errors.rejectValue("username", "taikhoan", "Bạn chưa nhập email");
+			return "home/register";
+		}
+		else if(taikhoan.getPassword().trim().length() == 0) {
 			errors.rejectValue("password", "taikhoan", "Bạn chưa nhập mật khẩu");
 			return "home/register";
-		} else if(taikhoan.getUsername().trim().length() == 0
-				&& taikhoan.getPassword().trim().length() == 0) {
-			errors.rejectValue("username", "taikhoan", "Bạn chưa nhập email");
-			errors.rejectValue("password", "taikhoan", "Bạn chưa nhập mật khẩu");
+		}
+		else if (taikhoan.getHoten().trim().length() < 5 || taikhoan.getHoten().trim().length() > 50) {
+			errors.rejectValue("hoten", "taikhoan", "Họ tên có độ dài từ 5 -> 50 kí tự");
 			return "home/register";
-		} else if(taikhoan.getPassword().trim().length() == 0) {
-			errors.rejectValue("password", "taikhoan", "Bạn chưa nhập mật khẩu");
+		}
+		else if(!taikhoan.getUsername().matches(this.EMAIL_PATTERN)) {
+			errors.rejectValue("username", "taikhoan", "Email không đúng định dạng. VD: example@gmail.com");
+			return "home/register";
+		}
+		else if(taikhoan.getPassword().length() < 8) {
+			errors.rejectValue("password", "taikhoan", "Mật khẩu phải 8 kí tự trở lên");
 			return "home/register";
 		}
 		
@@ -190,8 +205,6 @@ public class taikhoanController {
 		else {
 			return "home/register";
 		}
-		
-		//return "home/register";
 	}
 	
 	@RequestMapping("forgot-password") 
@@ -217,6 +230,9 @@ public class taikhoanController {
 		
 		if(username.trim().length() == 0) {
 			errors.rejectValue("username", "taikhoan", "Bạn chưa nhập email");
+			return "home/forgotPassword";
+		} else if(!taikhoan.getUsername().matches(this.EMAIL_PATTERN)) {
+			errors.rejectValue("username", "taikhoan", "Email không đúng định dạng. VD: example@gmail.com");
 			return "home/forgotPassword";
 		} else if(!kiemTraTaiKhoanTonTai(taikhoan.getUsername())) {
 			errors.rejectValue("username", "taikhoan", "Email không tồn tại. Vui lòng kiểm tra lại");
@@ -274,7 +290,6 @@ public class taikhoanController {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("users") != null) {
-			//taikhoan currentSSTK = (taikhoan) session.getAttribute("users");
 			tk = new taikhoan();
 			tk.setHoten( ((taikhoan) session.getAttribute("users")).getHoten());
 			tk.setUsername( ((taikhoan) session.getAttribute("users")).getUsername());
@@ -296,11 +311,14 @@ public class taikhoanController {
 		if(taikhoan.getHoten().trim().length() == 0) {
 			errors.rejectValue("hoten", "taikhoan", "Bạn chưa nhập họ tên");
 			return "home/editProfile";
-		} else if(taikhoan.getSdt().trim().length() == 0) {
-			errors.rejectValue("hoten", "taikhoan", "Bạn chưa nhập số điện thoại");
-			return "home/editProfile";
 		} else if(taikhoan.getPassword().trim().length() == 0) {
 			errors.rejectValue("password", "taikhoan", "Bạn chưa nhập mật khẩu");
+			return "home/editProfile";
+		} else if (taikhoan.getHoten().trim().length() < 5 || taikhoan.getHoten().trim().length() > 50) {
+			errors.rejectValue("hoten", "taikhoan", "Họ tên có độ dài từ 5 -> 50 kí tự");
+			return "home/editProfile";
+		} else if(taikhoan.getPassword().length() < 8) {
+			errors.rejectValue("password", "taikhoan", "Mật khẩu phải 8 kí tự trở lên");
 			return "home/editProfile";
 		}
 		

@@ -75,10 +75,12 @@
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Tiêu đề bài báo</h4>
 				<form:input path="tieude" type="text" class="form-control" placeholder="Nhập tiêu đề bài báo"/>
+				<form:errors path="tieude" style="color:red; font-size: 12px" />
 			</div>
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Nội dung tóm tắt</h4>
 				<form:textarea path="tomtat" class="form-control" rows="5" style="resize: none" placeholder="Nhập khoảng 100 - 200 từ tóm tắt nội dung bài báo"></form:textarea>
+				<form:errors path="tomtat" style="color:red; font-size: 12px" />
 			</div>	
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Hình ảnh</h4>
@@ -87,10 +89,11 @@
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Nội dung</h4>
 				<form:textarea path="noidung1" id="ckeditorNoiDung" class="form-control" rows="5"/>
+				<form:errors path="noidung1" style="color:red; font-size: 12px" />
 			</div>
 			<div style="margin: 20px auto; width: 20%">
 				<button class="btn  btn-block" type="submit" style="padding: 5px; font-size: 20px; background-color: #b70002; color: white;">
-					 Thêm bài báo
+					 Sửa bài báo
 				</button>
 			</div>
 			<a href="${pageContext.request.contextPath}/admin" id="cancel_signup" style="font-size: 16px; margin: 10px; color: #000;">

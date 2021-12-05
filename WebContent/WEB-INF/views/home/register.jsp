@@ -46,6 +46,10 @@
 		.custom-file-input:active::before {
 			background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 		}
+		
+		.form-signup input {
+		    margin-bottom: 0px;
+		}
 	</style>
 </head>
 <body>
@@ -53,31 +57,31 @@
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); 
 	transition: all 0.3s cubic-bezier(.25, .8, .25, 1); padding: 20px;">
 	
-		<form:form action="register" class="form-signup" id="signup" 
-		method="post" modelAttribute="taikhoan" enctype="multipart/form-data">
+		<form:form action="register" method="post" enctype="multipart/form-data" modelAttribute="taikhoan" class="form-signup" id="signup" >
 			<div>
-				<h1 class="h3 mb-3 font-weight-bold " style="text-align: center;color: #b70002;">
+				<h3 class="h3 mb-3 font-weight-bold " 
+				style="text-align: center;color: #b70002;margin-top: 10px;font-weight: 700;margin-bottom: 20px;font-size: 35px;">
 					Đăng kí tài khoản
-				</h1>
+				</h3>
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="hoten" type="text" class="form-control" placeholder="Họ tên" />
-				<form:errors path="hoten" style="color:red;" />
+				<form:errors path="hoten" style="color:red; font-size: 12px" />
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="sdt" type="number" class="form-control" placeholder="Số diện thoại" />
-				<form:errors path="sdt" style="color:red;" />
+				<form:errors path="sdt" style="color:red; font-size: 12px" />
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="username" type="email" class="form-control" placeholder="Email" />
-				<form:errors path="username" style="color:red;" />
+				<form:errors path="username" style="color:red; font-size: 12px" />
 			</div>
 			<div style="margin-bottom: 10px;">
 				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
-				<form:errors path="password" style="color:red;" />
+				<form:errors path="password" style="color:red; font-size: 12px" />
 			</div>
 
-			<form:select path="gioitinh" style="margin-bottom:10px;">
+			<form:select path="gioitinh" style="margin-bottom:10px; border-radius: 4px; padding: 2px;">
 				<form:option value="Nữ">Nữ</form:option>
 				<form:option value="Nam">Nam</form:option>
 			</form:select>

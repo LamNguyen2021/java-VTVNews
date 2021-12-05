@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -179,7 +180,25 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "admin/themBaiBao", method = RequestMethod.POST)
-	public String themBaiBao(@ModelAttribute("baibao") baibao baibao, @RequestParam("anh") MultipartFile anh, HttpServletRequest request) {
+	public String themBaiBao(@ModelAttribute("baibao") baibao baibao, BindingResult errors, @RequestParam("anh") MultipartFile anh, HttpServletRequest request) {
+		
+		if(baibao.getTieude().trim().length() == 0) {
+			errors.rejectValue("tieude", "baibao", "Vui lòng nhập tiêu đề");
+			return "admin/themBaiBao";
+		} else if (baibao.getTomtat().trim().length() == 0) {
+			errors.rejectValue("tomtat", "baibao", "Vui lòng nhập tóm tắt");
+			return "admin/themBaiBao";
+		} else if (baibao.getNoidung1().trim().length() == 0) {
+			errors.rejectValue("noidung1", "baibao", "Vui lòng nhập nội dung");
+			return "admin/themBaiBao";
+		} else if (baibao.getTieude().trim().length() < 10 || baibao.getTieude().trim().length() > 100) {
+			errors.rejectValue("tieude", "baibao", "Độ dài tiêu đề từ 10 -> 50 kí tự. Bạn đã nhập được " + baibao.getTieude().trim().length() + " kí tự");
+			return "admin/themBaiBao";
+		} else if (baibao.getTieude().trim().length() < 30 || baibao.getTieude().trim().length() > 150) {
+			errors.rejectValue("tomtat", "baibao", "Độ dài tiêu đề từ 30 -> 150 kí tự. Bạn đã nhập được " + baibao.getTomtat().trim().length() + " kí tự");
+			return "admin/themBaiBao";
+		}
+		
 		if(!anh.isEmpty()) {
 			try {
 				String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
@@ -257,7 +276,25 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "admin/suaBaiBao/{idbb}", method = RequestMethod.POST)
-	public String suaBaiBao(@PathVariable("idbb") int idbb, @ModelAttribute("baibao") baibao baibao, @RequestParam("anh") MultipartFile anh, HttpServletRequest request) {
+	public String suaBaiBao(@PathVariable("idbb") int idbb, @ModelAttribute("baibao") baibao baibao, BindingResult errors, @RequestParam("anh") MultipartFile anh, HttpServletRequest request) {
+		
+		if(baibao.getTieude().trim().length() == 0) {
+			errors.rejectValue("tieude", "baibao", "Vui lòng nhập tiêu đề");
+			return "admin/themBaiBao";
+		} else if (baibao.getTomtat().trim().length() == 0) {
+			errors.rejectValue("tomtat", "baibao", "Vui lòng nhập tóm tắt");
+			return "admin/themBaiBao";
+		} else if (baibao.getNoidung1().trim().length() == 0) {
+			errors.rejectValue("noidung1", "baibao", "Vui lòng nhập nội dung");
+			return "admin/themBaiBao";
+		} else if (baibao.getTieude().trim().length() < 10 || baibao.getTieude().trim().length() > 100) {
+			errors.rejectValue("tieude", "baibao", "Độ dài tiêu đề từ 10 -> 50 kí tự. Bạn đã nhập được " + baibao.getTieude().trim().length() + " kí tự");
+			return "admin/themBaiBao";
+		} else if (baibao.getTieude().trim().length() < 30 || baibao.getTieude().trim().length() > 150) {
+			errors.rejectValue("tomtat", "baibao", "Độ dài tiêu đề từ 30 -> 150 kí tự. Bạn đã nhập được " + baibao.getTomtat().trim().length() + " kí tự");
+			return "admin/themBaiBao";
+		}
+		
 		if(!anh.isEmpty()) {
 			try {
 				String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
@@ -354,7 +391,25 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "admin/themDanhMuc", method = RequestMethod.POST)
-	public String themDanhMuc(@ModelAttribute("danhmuc") danhmuc danhmuc) {
+	public String themDanhMuc(@ModelAttribute("danhmuc") danhmuc danhmuc, BindingResult errors) {
+		String MADANHMUC_REGEX = "([1-9]){1}([A-Z]){2}";
+		
+		if(danhmuc.getMadanhmuc().trim().length() == 0) {
+			errors.rejectValue("madanhmuc", "danhmuc", "Vui lòng nhập mã danh mục");
+			return "admin/themDanhMuc";
+		} else if (danhmuc.getTendanhmuc().trim().length() == 0) {
+			errors.rejectValue("tendanhmuc", "danhmuc", "Vui lòng nhập tên danh mục");
+			return "admin/themDanhMuc";
+		} else if (!danhmuc.getMadanhmuc().matches(MADANHMUC_REGEX)) {
+			errors.rejectValue("madanhmuc", "danhmuc", "Mã danh muc không đúng định dạng. Gồm 3 kí tự, kí tự đầu là số, 2 kí tự còn lại là chữ in hoa");
+			return "admin/themDanhMuc";
+		}
+		
+		if(kiemTraDanhMucTonTai(danhmuc.getMadanhmuc())) {
+			errors.rejectValue("madanhmuc", "danhmuc", "Mã danh mục đã tồn tại");
+			return "admin/themDanhMuc";
+		}
+		
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
