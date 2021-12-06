@@ -42,6 +42,8 @@ import AdminNewPage.Entity.timeBL;
 @Controller
 @Transactional
 public class AdminController {
+	private String MADANHMUC_REGEX = "([1-9]){1}([A-Z]){2}";
+	
 	@Autowired
 	SessionFactory factory;
 	
@@ -358,6 +360,31 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	@RequestMapping("admin/danhmuc")
+	public String hienThiDanhSachDanhMuc(ModelMap model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getUsername());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(admin.getPassword());
+			tk.setVaitro(admin.getVaitro());
+
+			model.addAttribute("TKLogin", tk);
+		}
+	
+		Session session1 = factory.getCurrentSession();
+		String hqlDanhMuc = "FROM danhmuc";
+		Query queryDanhMuc = session1.createQuery(hqlDanhMuc);
+		List<danhmuc> listDanhMuc = queryDanhMuc.list();
+		model.addAttribute("DM", listDanhMuc);
+		return "admin/danhmuc";
+	}
+	
 	@RequestMapping(value = "admin/themDanhMuc", method = RequestMethod.GET)
 	public String themDanhMuc(ModelMap model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -392,15 +419,13 @@ public class AdminController {
 	
 	@RequestMapping(value = "admin/themDanhMuc", method = RequestMethod.POST)
 	public String themDanhMuc(@ModelAttribute("danhmuc") danhmuc danhmuc, BindingResult errors) {
-		String MADANHMUC_REGEX = "([1-9]){1}([A-Z]){2}";
-		
 		if(danhmuc.getMadanhmuc().trim().length() == 0) {
 			errors.rejectValue("madanhmuc", "danhmuc", "Vui lòng nhập mã danh mục");
 			return "admin/themDanhMuc";
 		} else if (danhmuc.getTendanhmuc().trim().length() == 0) {
 			errors.rejectValue("tendanhmuc", "danhmuc", "Vui lòng nhập tên danh mục");
 			return "admin/themDanhMuc";
-		} else if (!danhmuc.getMadanhmuc().matches(MADANHMUC_REGEX)) {
+		} else if (!danhmuc.getMadanhmuc().matches(this.MADANHMUC_REGEX)) {
 			errors.rejectValue("madanhmuc", "danhmuc", "Mã danh muc không đúng định dạng. Gồm 3 kí tự, kí tự đầu là số, 2 kí tự còn lại là chữ in hoa");
 			return "admin/themDanhMuc";
 		}
@@ -422,6 +447,53 @@ public class AdminController {
 			session.close();
 		}
 		return "redirect:/admin";
+	}
+	
+	@RequestMapping(value = "admin/danhmuc/suaDanhMuc/{madanhmuc}", method = RequestMethod.GET)
+	public String suaDanhMuc(@PathVariable("madanhmuc") String madanhmuc, ModelMap model, HttpServletRequest request, @ModelAttribute("danhmuc") danhmuc danhmuc) {
+		HttpSession session = request.getSession();
+		taikhoan admin = (taikhoan) session.getAttribute("users");
+		if(admin != null && admin.getVaitro()==1) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(admin.getHoten());
+			tk.setUsername(admin.getUsername());
+			tk.setAnh(admin.getAnh());
+			tk.setSdt(admin.getSdt());
+			tk.setGioitinh(admin.getGioitinh());
+			tk.setPassword(tk.getPassword());
+			tk.setVaitro(tk.getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
+		Session session1 = factory.getCurrentSession();
+		String hqlDanhMuc = "FROM danhmuc WHERE madanhmuc = '" + madanhmuc + "'";
+		Query queryDanhMuc = session1.createQuery(hqlDanhMuc);
+		danhmuc dm = (danhmuc) queryDanhMuc.list().get(0);
+		model.addAttribute("danhmuc", dm);
+
+		return "admin/suaDanhMuc";
+	}
+	
+	@RequestMapping("admin/danhmuc/suaDanhMuc")
+	public String suaDanhMuc(@ModelAttribute("danhmuc") danhmuc danhmuc, BindingResult errors) {
+		
+		if (danhmuc.getTendanhmuc().trim().length() == 0) {
+			errors.rejectValue("tendanhmuc", "danhmuc", "Vui lòng nhập tên danh mục");
+			return "admin/suaDanhMuc";
+		} 
+		
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(danhmuc);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			System.out.println("sua danh muc that bai");
+		} finally {
+			session.close();
+		}
+		return "redirect:/admin/danhmuc";
 	}
 }
 

@@ -146,10 +146,10 @@
 
 				<!-- Page Heading -->
 				<div class="d-sm-flex align-items-center justify-content-between mb-4">
-					<h1 class="h3 mb-0 text-gray-800">DANH SÁCH TÀI KHOẢN</h1>
+					<h1 class="h3 mb-0 text-gray-800">DANH SÁCH DANH MỤC</h1>
 					<form class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="background-color:#b70002;">
-						<a href="${pageContext.request.contextPath }/register" style="color: white; text-decoration: none; font-size: 16px">
-							Thêm tài khoản 
+						<a href="${pageContext.request.contextPath }/admin/themDanhMuc" style="color: white; text-decoration: none; font-size: 16px">
+							Thêm danh mục
 						</a>
 					</form>
 				</div>
@@ -167,17 +167,35 @@
 											aria-describedby="dataTable_info" style="width: 100%; color: black;">
 											<thead>
 												<tr role="row">
-													<th>Ảnh đại diện</th>
-													<th>Họ tên</th>
-													<th>Email</th>
-													<th>Mật khẩu</th>
-													<th>Số điện thoại</th>
-													<th>Giới tính</th>
-													<th>Vai trò</th>
+													<th>Mã danh mục</th>
+													<th>Tên danh mục</th>
+													<th>Sửa</th>
 													<th>Xóa</th>
 												</tr>
 											</thead>
 											<tbody>
+												<c:forEach var="u" items="${DM }">
+													<tr>
+														<td>${u.madanhmuc }</td>
+														<td>${u.tendanhmuc }</td>
+														<td>
+															<a href="${pageContext.request.contextPath }/admin/danhmuc/suaDanhMuc/${u.madanhmuc}">
+																<button class="btn btn-primary btn-xs">
+																	<span class="glyphicon glyphicon-pencil"></span>
+																</button>
+															</a>
+														</td>
+														<td>
+															<a href="#">
+																<button class="btn btn-danger btn-xs">
+																	<span class="glyphicon glyphicon-trash"></span>
+																</button>
+															</a>
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+											<%-- <tbody>
 												<c:forEach var="u" items="${taikhoan }">
 													<tr>
 														<td>
@@ -210,7 +228,7 @@
 														</td>
 													</tr>
 												</c:forEach>
-											</tbody>
+											</tbody> --%>
 										</table>
 									</div>
 								</div>
