@@ -19,6 +19,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link id="changeable-colors" rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/colors/orange.css" />
 	<script src="${pageContext.request.contextPath}/assets/js/modernizer.js"></script>
+	
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	
 	<base href="${pageContext.servletContext.contextPath }/">
 </head>
 <body>
@@ -34,6 +37,8 @@
 				<form:input path="password" type="password" id="user-pass" class="form-control" placeholder="Mật khẩu" />
 				<form:errors path="password" style="color: red; font-size: 12px"/>
 			</div>
+			<div class="g-recaptcha" data-sitekey="6LdNo-QcAAAAANQTnVSc-RrtyU6VNRZiGKFRFmfZ"></div>
+			<span style="color: red; font-size: 12px">${recaptcha}</span>
 			
 			<button class="btn btn-success btn-block" type="submit" style="font-size: 15px; background-color: #b70002; border-color: #b70002">
 				ĐĂNG NHẬP

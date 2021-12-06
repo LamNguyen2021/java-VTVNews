@@ -37,6 +37,7 @@ import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import AdminNewPage.Bean.UploadFile;
 import AdminNewPage.Entity.taikhoan;
+import AdminNewPage.Recaptcha.RecaptchaVerification;
 
 @Transactional
 @Controller
@@ -68,6 +69,13 @@ public class taikhoanController {
 		taikhoan tk = (taikhoan) session.get(taikhoan.class, taikhoan.getUsername());
 		System.out.println("session tk: " + tk);
 		
+		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+		boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
+		
+		if(errors.hasErrors()) {
+			System.out.println("looii ne");
+		}
+		
 		try {
 			if (taikhoan.getUsername().trim().length() == 0) {
 				errors.rejectValue("username", "taikhoan", "Bạn chưa nhập email ");
@@ -77,7 +85,10 @@ public class taikhoanController {
 				return "home/login";
 			} else if(!taikhoan.getUsername().matches(this.EMAIL_PATTERN)) {
 				errors.rejectValue("username", "taikhoan", "Email không đúng định dạng. VD: example@gmail.com");
-				return "home/register";
+				return "home/login";
+			} else if(!verify) {
+				model.addAttribute("recaptcha","Vui lòng nhập recaptcha");
+				return "home/login";
 			}
 			
 			if (taikhoan.getUsername().equals(tk.getUsername())) {
