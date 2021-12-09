@@ -196,7 +196,7 @@
 																		<option selected="selected" label="Member">
 																		<option label="Admin">
 																	</select>
-																	<a href="setAdmin/${u.username}">Update</a>
+																	<a href="admin/setAdmin/${u.username}">Update</a>
 																</c:when>
 																<c:otherwise>
 																	<p>Admin</p>

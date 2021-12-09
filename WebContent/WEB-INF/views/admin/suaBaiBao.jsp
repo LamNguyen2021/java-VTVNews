@@ -79,7 +79,7 @@
 			</div>
 			<div style="padding: 10px;">
 				<h4 style="color: #b70002; font-weight: bold;">Nội dung tóm tắt</h4>
-				<form:textarea path="tomtat" class="form-control" rows="5" style="resize: none" placeholder="Nhập khoảng 100 - 200 từ tóm tắt nội dung bài báo"></form:textarea>
+				<form:textarea path="tomtat" class="form-control" rows="5" style="resize: none" placeholder="Nhập khoảng 30 - 200 từ tóm tắt nội dung bài báo"></form:textarea>
 				<form:errors path="tomtat" style="color:red; font-size: 12px" />
 			</div>	
 			<div style="padding: 10px;">

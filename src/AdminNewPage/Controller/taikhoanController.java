@@ -261,7 +261,7 @@ public class taikhoanController {
 			String subject = "Website tin tức VTV - đặt lại mật khẩu";
 			String from = "9.4ngoclam@gmail.com";
 			String to = username;
-			String passNew = this.generateRandomPassword(6, 48, 122);
+			String passNew = this.generateRandomPassword(8, 48, 122);
 			String body = "Đây là mật khẩu mới của bạn: " + passNew;
 			
 			helper.setFrom(from);

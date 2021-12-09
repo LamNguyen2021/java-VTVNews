@@ -220,10 +220,10 @@
 									</div>
 								</div>
 								<div class="search">
-									<form class="example" action="/action_page.php"
+									<form class="example" action="${pageContext.request.contextPath }/timKiem"
 										style="margin: auto; max-width: 300px">
-										<input type="text" placeholder="Tìm kiếm ..." name="search2">
-										<button type="submit">
+										<input type="search" placeholder="Tìm kiếm ..." name="searchInput" style="border: 1px solid #fff;">
+										<button type="submit" name="btnSearch">
 											<i class="fa fa-search"></i>
 										</button>
 									</form>

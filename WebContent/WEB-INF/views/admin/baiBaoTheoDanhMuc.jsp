@@ -162,8 +162,8 @@
 	<!-- End Content Wrapper -->
 	
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
+	<a class="scroll-to-top rounded" href="#page-top"> 
+		<i class="fas fa-angle-up" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
 	</a>
 	
 	<!-- Logout Modal-->

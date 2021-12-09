@@ -128,6 +128,63 @@ public class HomeController {
 		return "home/home";
 	}
 	
+	public List<baibao> timKiemBaiBao(String tenBaiBao) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM baibao where tieude LIKE :tenBaiBao";
+		Query query = session.createQuery(hql);
+		query.setParameter("tenBaiBao", "%" + tenBaiBao + "%");
+		List<baibao> list = query.list();
+		return list;
+	}
+	
+	@RequestMapping(value = "timKiem", params = "btnSearch")
+	public String timKiemBaiBao(HttpServletRequest request, ModelMap model) {
+		String tuKhoaTim = request.getParameter("searchInput");
+		model.addAttribute("tuKhoaTim", tuKhoaTim);
+		
+		List<baibao> listBaiBao = this.timKiemBaiBao(tuKhoaTim);
+		
+		Session session1 = factory.getCurrentSession();
+		
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH) + 1;
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		
+		String date = hour + "g  " + day + "/" + month + "/" + year;
+		model.addAttribute("date", date);
+		
+		String hql3 = "FROM danhmuc";
+		Query query3 = session1.createQuery(hql3);
+		List<danhmuc> list3 = query3.list();
+		model.addAttribute("DM", list3);
+		
+		List<timeBB> timebbTK = new ArrayList<timeBB>();
+		for(baibao i : listBaiBao) {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			String time = format.format(i.getNgaydang());
+			timebbTK.add(new timeBB(time, i));
+		}
+		model.addAttribute("timebbTK", timebbTK);
+		
+		HttpSession sesion2 = request.getSession();
+		if(sesion2.getAttribute("users") != null) {
+			taikhoan tk = new taikhoan();
+			tk.setHoten(((taikhoan) sesion2.getAttribute("users")).getHoten());
+			tk.setUsername(((taikhoan) sesion2.getAttribute("users")).getUsername());
+			tk.setAnh(((taikhoan) sesion2.getAttribute("users")).getAnh());
+			tk.setSdt(((taikhoan) sesion2.getAttribute("users")).getSdt());
+			tk.setGioitinh(((taikhoan) sesion2.getAttribute("users")).getGioitinh());
+			tk.setPassword(((taikhoan) sesion2.getAttribute("users")).getPassword());
+			tk.setVaitro(((taikhoan) sesion2.getAttribute("users")).getVaitro());
+			model.addAttribute("TKLogin", tk);
+		}
+		
+		return "home/baiBaoTimKiem";
+	}
+	
 	@RequestMapping("danh-muc/{madanhmuc}")
 	public String BVTheoDM(ModelMap model, @PathVariable("madanhmuc") String maDM, HttpServletRequest request) {
 		
@@ -297,6 +354,16 @@ public class HomeController {
 		return "redirect:/bai-viet/{idbb}";
 	}
 	
+	@RequestMapping("access-forbidden")
+	public String accessForbidden() {
+		return "access-forbidden";
+	}
+	
+	@RequestMapping("*")
+	public String pageNotFound() {
+		return "page-not-found";
+	}
+	
 //	@RequestMapping("chinh-sua-binh-luan/{idbl}/{idbb}")
 //	public String chinhSuaBinhLuan(@PathVariable("idbl") int idbl, @PathVariable("idbb") int idbb, @ModelAttribute("binhluan") binhluan binhluan, ModelMap model) {
 //		System.out.println("Vao ham chinh sua binh luan: " + idbl);
@@ -319,4 +386,6 @@ public class HomeController {
 //		
 //		return "redirect:/bai-viet/{idbb}";
 //	}
+	
+	
 }

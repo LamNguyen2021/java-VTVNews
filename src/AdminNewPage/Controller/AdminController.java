@@ -82,7 +82,7 @@ public class AdminController {
 		return "admin/admin";
 	}
 	
-	@RequestMapping("setAdmin/{username}")
+	@RequestMapping("admin/setAdmin/{username}")
 	public String setAdmin(@PathVariable("username") String username) {
 		username = username + ".com";
 
@@ -193,11 +193,11 @@ public class AdminController {
 		} else if (baibao.getNoidung1().trim().length() == 0) {
 			errors.rejectValue("noidung1", "baibao", "Vui lòng nhập nội dung");
 			return "admin/themBaiBao";
-		} else if (baibao.getTieude().trim().length() < 10 || baibao.getTieude().trim().length() > 100) {
-			errors.rejectValue("tieude", "baibao", "Độ dài tiêu đề từ 10 -> 50 kí tự. Bạn đã nhập được " + baibao.getTieude().trim().length() + " kí tự");
+		} else if (baibao.getTieude().trim().length() < 10 || baibao.getTieude().trim().length() > 150) {
+			errors.rejectValue("tieude", "baibao", "Độ dài tiêu đề từ 10 -> 150 kí tự. Bạn đã nhập được " + baibao.getTieude().trim().length() + " kí tự");
 			return "admin/themBaiBao";
-		} else if (baibao.getTieude().trim().length() < 30 || baibao.getTieude().trim().length() > 150) {
-			errors.rejectValue("tomtat", "baibao", "Độ dài tiêu đề từ 30 -> 150 kí tự. Bạn đã nhập được " + baibao.getTomtat().trim().length() + " kí tự");
+		} else if (baibao.getTomtat().trim().length() < 30 || baibao.getTomtat().trim().length() > 200) {
+			errors.rejectValue("tomtat", "baibao", "Độ dài tiêu đề từ 30 -> 200 kí tự. Bạn đã nhập được " + baibao.getTomtat().trim().length() + " kí tự");
 			return "admin/themBaiBao";
 		}
 		
@@ -282,19 +282,19 @@ public class AdminController {
 		
 		if(baibao.getTieude().trim().length() == 0) {
 			errors.rejectValue("tieude", "baibao", "Vui lòng nhập tiêu đề");
-			return "admin/themBaiBao";
+			return "admin/suaBaiBao";
 		} else if (baibao.getTomtat().trim().length() == 0) {
 			errors.rejectValue("tomtat", "baibao", "Vui lòng nhập tóm tắt");
-			return "admin/themBaiBao";
+			return "admin/suaBaiBao";
 		} else if (baibao.getNoidung1().trim().length() == 0) {
 			errors.rejectValue("noidung1", "baibao", "Vui lòng nhập nội dung");
-			return "admin/themBaiBao";
-		} else if (baibao.getTieude().trim().length() < 10 || baibao.getTieude().trim().length() > 100) {
-			errors.rejectValue("tieude", "baibao", "Độ dài tiêu đề từ 10 -> 50 kí tự. Bạn đã nhập được " + baibao.getTieude().trim().length() + " kí tự");
-			return "admin/themBaiBao";
-		} else if (baibao.getTieude().trim().length() < 30 || baibao.getTieude().trim().length() > 150) {
-			errors.rejectValue("tomtat", "baibao", "Độ dài tiêu đề từ 30 -> 150 kí tự. Bạn đã nhập được " + baibao.getTomtat().trim().length() + " kí tự");
-			return "admin/themBaiBao";
+			return "admin/suaBaiBao";
+		} else if (baibao.getTieude().trim().length() < 10 || baibao.getTieude().trim().length() > 150) {
+			errors.rejectValue("tieude", "baibao", "Độ dài tiêu đề từ 10 -> 150 kí tự. Bạn đã nhập được " + baibao.getTieude().trim().length() + " kí tự");
+			return "admin/suaBaiBao";
+		} else if (baibao.getTomtat().trim().length() < 30 || baibao.getTomtat().trim().length() > 200) {
+			errors.rejectValue("tomtat", "baibao", "Độ dài tiêu đề từ 30 -> 200 kí tự. Bạn đã nhập được " + baibao.getTomtat().trim().length() + " kí tự");
+			return "admin/suaBaiBao";
 		}
 		
 		if(!anh.isEmpty()) {

@@ -218,7 +218,7 @@
 								<div class="search">
 									<form class="example" action="${pageContext.request.contextPath }/timKiem"
 										style="margin: auto; max-width: 300px">
-										<input type="search" placeholder="Tìm kiếm ..." name="searchInput" style="border: 1px solid #fff;">
+										<input type="search" placeholder="Tìm kiếm ..." name="searchInput">
 										<button type="submit" name="btnSearch">
 											<i class="fa fa-search"></i>
 										</button>
@@ -249,114 +249,14 @@
 
 	<!-- Home Content -->
 	<div id="HomeContent">
-		<div class="container ">
-			<div class="row content">
-			
-				<!--MainContent -->
-				<div class="col-sm-9 MainContent ">
-
-					<!--TOP NEWS -->
-					<div class="row ">
-						<div class="topNews ">
-							<div class="col-sm-2 topNewsLeft">
-								<div style="width: 97%; margin: auto;">
-									<c:forEach var="u" items="${BB45}">
-										<div class="row ">
-											<a href="${pageContext.request.contextPath}/bai-viet/${u.idbb}">
-												<img style="width: 100%;" src="./assets/images/${u.hinhanh1 }" alt="${u.tieude }">
-												<p style="text-align: justify; padding-top: 10px;" class="summary">${u.tieude }</p>
-											</a>
-									</div>
-									</c:forEach>
-								</div>
-							</div>
-							<div class="col-sm-8 topNewsMain ">
-								<div style="width: 95%; margin: auto;">
-									<!-- ${TOPNEW.getIdbb()} -->
-									<div>
-										<img style="width: 100%;" src="./assets/images/${TOPNEW.getHinhanh1() }" alt="${TOPNEW.getTieude() }">
-										<div class="title" style="padding: 10px;">
-											<a href="${pageContext.request.contextPath}/bai-viet/${TOPNEW.getIdbb()}">${TOPNEW.getTieude() }</a>
-										</div>
-										<div class="colorDark text-justify" style="padding: 0px 10px;">
-											<a>
-												<p>${TOPNEW.getTomtat() }</p>
-											</a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-2 topNewRight">
-								<div style="width: 95%; margin: auto;">
-									<c:forEach var="u" items="${listRight }">
-										<div class="row colorDark text-justify">
-											<a href="${pageContext.request.contextPath}/bai-viet/${u.idbb}">
-												<p>${u.tieude }</p>
-											</a>
-											<hr>
-										</div>
-									</c:forEach>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div style="margin: auto; padding-bottom: 20px;"
-						class="row content">
-						<div class="border_bottom_box"></div>
-					</div>
-					<!--End TOP NEWS -->
-
-					<!--SECOND NEWS -->
-					<div class="row marginBottom">
-						<div class="secondNews text-justify">
-							<c:forEach var="u" items="${TOP3 }">
-								<div class="col-sm-4">
-									<div style="width: 100%;">
-										<div class="row" style="padding: 5px;">
-											<a
-												href="${pageContext.request.contextPath}/bai-viet/${u.idbb}">
-												<img src="./assets/images/${u.hinhanh1 }" alt="${u.tieude }">
-	
-											</a>
-										</div>
-										<div class="row" style="margin-top: 10px; padding: 0 10px;">
-											<a href="${pageContext.request.contextPath}/bai-viet/${u.idbb}" class="summary text-justify">
-												<p>${u.tieude }</p>
-											</a>
-										</div>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-					</div>
-					<!--END SECOND NEWS  -->
-				</div>
-				<!--End MainContent -->
-
-				<!--RightContent -->
-				<div class="col-sm-3 sidenav RightContent">
-					<div style="width: 97%; margin: auto; padding-left: 10px;">
-						<a href="${pageContext.request.contextPath}/bai-viet/${thuocLa.idbb}"> <img src="./assets/images/phongchongThuocLa.png" alt="${thuocLa.tieude }"></a>
-						<a href="https://zingmp3.vn/zing-chart/index.html" target="_blank"> 
-							<img style="padding: 10px 0px; width: 95%" src="./assets/images/songvn2x.jpg" alt="">
-						</a> 
-						<a href="https://mazdamotors.vn/" target="_blank">
-						 	<img style="height: 100%;" src="./assets/images/carRight.png" alt="">
-						</a>
-					</div>
-				</div>
-				<!--End RightContent -->
+		<div class="container ">	
+			<div class="row">
+				<h3>Kết quả tìm kiếm bài báo có từ khóa: <b>${tuKhoaTim }</b></h3>
 			</div>
-
-			<div style="margin: auto; padding-bottom: 20px;" class="row content">
-				<div class="border_bottom_box"></div>
-			</div>
-			
 			<div class="row content ">
 				<div class="col-sm-9 MainContent " style="padding-top: 20px;">
 					<div class="row marginBottom">
-						<c:forEach var="u" items="${timeBBFormat }">
+						<c:forEach var="u" items="${timebbTK }">
 							<div class="row colorDark text-justify" >
 								<div class="col-sm-4">
 									<a href="${pageContext.request.contextPath}/bai-viet/${u.bb.idbb}">
@@ -410,34 +310,6 @@
 					<a href=""> <img style="height: 500px; padding-bottom: 20px;width: 100%;"
 						src="./assets/images/imgRight.jpg" alt="">
 					</a>
-				</div>
-			</div>
-
-			<div style="margin: auto; padding-bottom: 20px;" class="row content">
-				<div class="border_bottom_box"></div>
-			</div>
-
-			<div class="row content tlitem dungbolo " id="timelineItem2" style="padding-bottom: 40px;">
-				<div class="col-sm-9 MainContent ">
-					<div> 
-						<a class="dungbololeft" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}">
-							<img src="./assets/images/onhiemkk.jpg" alt="">
-						</a>
-						<div class="dungboloright">
-							<div class="title_box " style="display: flex;">
-								<a style="color: black;" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}" rel="nofollow">ĐỪNG BỎ LỠ</a> <span class="line"></span>
-							</div>
-							<div class="dungboloinfo">
-								<h3>
-									<a style="color: white;" href="${pageContext.request.contextPath}/bai-viet/${oNhiemMT.getIdbb()}">${oNhiemMT.tieude }</a>
-								</h3>
-							</div>
-						</div>
-					</div> 
-					<span class="clearfix"></span> <span class="border sprite"></span>
-				</div>
-				<div class="col-sm-3 sidenav RightContent">
-					<a href="${pageContext.request.contextPath}/bai-viet/${tuyenDung.getIdbb()}"> <img src="./assets/images/tuyendung.png" alt="${tuyenDung.tieude }"></a>
 				</div>
 			</div>
 
